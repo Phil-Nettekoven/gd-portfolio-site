@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvtk4i1kxpglb"]
+
+[ext_resource type="PackedScene" uid="uid://c6jpbwrvjdog0" path="res://scenes/lobby/model/lobby_model.gltf" id="1_1ig7j"]
+[ext_resource type="PackedScene" uid="uid://drpdkmy2ta31k" path="res://characters/player/player.tscn" id="2_ukx7c"]
+
+[node name="Lobby" type="Node3D"]
+
+[node name="stage" parent="." instance=ExtResource("1_1ig7j")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+metadata/_edit_lock_ = true
+
+[node name="player" parent="." instance=ExtResource("2_ukx7c")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.60308, 2.40946, -0.406272)
+
+[node name="Camera3D" type="Camera3D" parent="player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.100022, 1.09311, 6.7224)
+fov = 90.0

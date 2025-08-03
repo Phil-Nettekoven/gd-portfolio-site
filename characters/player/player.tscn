@@ -1,0 +1,97 @@
+[gd_scene load_steps=11 format=3 uid="uid://drpdkmy2ta31k"]
+
+[ext_resource type="Script" uid="uid://qd54rs2lhm00" path="res://characters/player/player.gd" id="1_xxgcw"]
+[ext_resource type="Texture2D" uid="uid://f547568wka2q" path="res://characters/player/pothead.png" id="2_xxgcw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b886q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xxgcw"]
+atlas = ExtResource("2_xxgcw")
+region = Rect2(0, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dc8e"]
+atlas = ExtResource("2_xxgcw")
+region = Rect2(0, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ixbpm"]
+atlas = ExtResource("2_xxgcw")
+region = Rect2(0, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_exd8k"]
+atlas = ExtResource("2_xxgcw")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c6leb"]
+atlas = ExtResource("2_xxgcw")
+region = Rect2(16, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dirf7"]
+atlas = ExtResource("2_xxgcw")
+region = Rect2(16, 96, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5dc8e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xxgcw")
+}],
+"loop": true,
+"name": &"idle_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dc8e")
+}],
+"loop": true,
+"name": &"idle_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ixbpm")
+}],
+"loop": true,
+"name": &"idle_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_exd8k")
+}],
+"loop": true,
+"name": &"idle_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c6leb")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dirf7")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}]
+
+[node name="player" type="CharacterBody3D"]
+script = ExtResource("1_xxgcw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_b886q")
+metadata/_edit_lock_ = true
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+offset = Vector2(0, 16)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_5dc8e")
+animation = &"idle_right"
+autoplay = "idle_down"
