@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://cvtk4i1kxpglb"]
+[gd_scene load_steps=4 format=3 uid="uid://cvtk4i1kxpglb"]
 
 [ext_resource type="PackedScene" uid="uid://c6jpbwrvjdog0" path="res://scenes/lobby/model/lobby_model.gltf" id="1_1ig7j"]
 [ext_resource type="PackedScene" uid="uid://drpdkmy2ta31k" path="res://characters/player/player.tscn" id="2_ukx7c"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ukx7c"]
+size = Vector3(24.4852, 7.92065, 8)
 
 [node name="Lobby" type="Node3D"]
 
@@ -16,3 +19,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.60308, 2.40946, -0.406272)
 [node name="Camera3D" type="Camera3D" parent="player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.100022, 1.09311, 6.7224)
 fov = 90.0
+
+[node name="side_scroll_area" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.0509, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="side_scroll_area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84713, 3.10632, 0)
+shape = SubResource("BoxShape3D_ukx7c")
+debug_color = Color(0.972145, 0, 0.452123, 1)

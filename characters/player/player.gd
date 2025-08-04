@@ -1,8 +1,8 @@
 extends CharacterBody3D
 
 
-const SPEED = 5.0
-const JUMP_VELOCITY:float = 1.5
+const SPEED = 10.0
+const JUMP_VELOCITY:float = 2
 
 enum STATE {pathing, free, disabled}
 var state:STATE = STATE.pathing
@@ -13,17 +13,16 @@ var player_direction:String = "down"
 func path_movement(delta:float)->void:
 	# Add the gravity.
 	if not is_on_floor():
-		print("HERE!")
 		velocity += get_gravity() * delta
 		return
 
 	velocity.x = 0
 
-	if !(Input.is_action_just_pressed("left") || !Input.is_action_just_pressed("right")):return
+	if !(Input.is_action_just_pressed("left") || Input.is_action_just_pressed("right")):return
 	var direction :Vector2= Input.get_vector("left", "right", "up", "down").normalized()
 
-	if direction.y < 0: player_direction = "up"
-	if direction.y > 0: player_direction = "down"
+	# if direction.y < 0: player_direction = "up"
+	# if direction.y > 0: player_direction = "down"
 	
 	velocity.y = JUMP_VELOCITY
 	if direction:
@@ -80,7 +79,7 @@ func handle_animations()->void:
 
 	animated_sprite.play(idle_str+movement_direction)
 
-func physics_process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if state == STATE.pathing:
 		path_movement(delta)
 	elif state == STATE.free:

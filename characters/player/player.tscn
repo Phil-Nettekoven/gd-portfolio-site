@@ -82,6 +82,7 @@ animations = [{
 
 [node name="player" type="CharacterBody3D"]
 script = ExtResource("1_xxgcw")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -95,3 +96,4 @@ texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_5dc8e")
 animation = &"idle_right"
 autoplay = "idle_down"
+metadata/_edit_lock_ = true
