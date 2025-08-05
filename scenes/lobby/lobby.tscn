@@ -18,7 +18,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.60308, 2.40946, -0.406272)
 
 [node name="Camera3D" type="Camera3D" parent="player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.100022, 1.09311, 6.7224)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 1.093, 6.722)
 fov = 90.0
 metadata/_edit_lock_ = true
 

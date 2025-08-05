@@ -7,7 +7,7 @@ const SPEED:float = 10.0
 const SPRINT_MOD:float = 2.0
 
 const JUMP_VELOCITY:float = 2
-const JUMP_MOD:float = 1.0
+const JUMP_MOD:float = 1.25
 const JUMP_COOLDOWN:float = 0.05
 
 enum STATE {pathing, free, disabled}

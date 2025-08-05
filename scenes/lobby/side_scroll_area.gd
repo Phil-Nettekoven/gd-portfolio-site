@@ -14,10 +14,8 @@ func _process(_delta: float) -> void:
 
 func _on_body_entered(body:Node3D) -> void:
 	if body.name != "player": return
-	print("Player entered")
 	body.change_state("pathing")
 
 func _on_body_exited(body:Node3D) -> void:
 	if body.name != "player": return
-	print("Player exited")
 	body.change_state("free")
