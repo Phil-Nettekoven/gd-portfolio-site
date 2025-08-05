@@ -1,9 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://drpdkmy2ta31k"]
+[gd_scene load_steps=13 format=3 uid="uid://drpdkmy2ta31k"]
 
 [ext_resource type="Script" uid="uid://qd54rs2lhm00" path="res://characters/player/player.gd" id="1_xxgcw"]
 [ext_resource type="Texture2D" uid="uid://f547568wka2q" path="res://characters/player/pothead.png" id="2_xxgcw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b886q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idpv6"]
+atlas = ExtResource("2_xxgcw")
+region = Rect2(16, 32, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xxgcw"]
 atlas = ExtResource("2_xxgcw")
@@ -29,8 +33,20 @@ region = Rect2(16, 64, 16, 32)
 atlas = ExtResource("2_xxgcw")
 region = Rect2(16, 96, 16, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_rpf03"]
+atlas = ExtResource("2_xxgcw")
+region = Rect2(16, 0, 16, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_5dc8e"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idpv6")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xxgcw")
@@ -78,6 +94,14 @@ animations = [{
 "loop": true,
 "name": &"right",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rpf03")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
 }]
 
 [node name="player" type="CharacterBody3D"]
@@ -94,6 +118,11 @@ transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 offset = Vector2(0, 16)
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_5dc8e")
-animation = &"idle_right"
+animation = &"idle_down"
 autoplay = "idle_down"
 metadata/_edit_lock_ = true
+
+[node name="jump_timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="jump_timer" to="." method="_on_timer_timeout"]
