@@ -1,6 +1,8 @@
 extends CharacterBody3D
 
 @onready var jump_timer:Timer = $jump_timer
+@onready var spring_arm:SpringArm3D = $SpringArm3D
+@onready var camera:Camera3D = $SpringArm3D/Camera3D
 var can_jump:bool = true
 
 const SPEED:float = 10.0
@@ -9,6 +11,7 @@ const SPRINT_MOD:float = 2.0
 const JUMP_VELOCITY:float = 2
 const JUMP_MOD:float = 1.25
 const JUMP_COOLDOWN:float = 0.05
+const GRAVITY_MOD:float = 2.0
 
 enum STATE {pathing, free, disabled}
 var state:STATE = STATE.free
@@ -18,7 +21,7 @@ var player_direction:String = "down"
 
 func path_movement(_delta:float)->void:
 	if not is_on_floor():
-		velocity += get_gravity() * _delta
+		velocity += (get_gravity() * GRAVITY_MOD) * _delta
 		return
 	
 	# if jump_timer.is_stopped() && not can_jump: #Start timer once the player has hit the ground again
@@ -37,6 +40,7 @@ func path_movement(_delta:float)->void:
 		cur_movespeed *= SPRINT_MOD
 		cur_jump_velocity *= JUMP_MOD
 	
+	
 
 	if direction:
 		velocity.x = direction.x * cur_movespeed
@@ -50,14 +54,16 @@ func path_movement(_delta:float)->void:
 func free_movement(_delta:float)->void:
 	
 	if not is_on_floor():
-		velocity += get_gravity() * _delta
+		velocity += (get_gravity() * GRAVITY_MOD) * _delta
 		return
 
 	velocity.x = 0
 	velocity.z = 0
 
+	#var dir = Vector3(input.x, 0, input.y).rotated(Vector3.UP, spring_arm.rotation.y)	
 	var input_dir :Vector2= Input.get_vector("left", "right", "up", "down")
-	var direction :Vector3 = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var direction :Vector3 = Vector3(input_dir.x, 0, input_dir.y).normalized()
+	direction = direction.rotated(Vector3.UP, camera.global_position.y)
 	
 	var cur_movespeed:float = SPEED
 	var cur_jump_velocity:float = JUMP_VELOCITY
@@ -66,13 +72,12 @@ func free_movement(_delta:float)->void:
 		cur_jump_velocity *= JUMP_MOD
 
 	if direction:
-		velocity.x = direction.x * cur_movespeed
-		velocity.z = direction.z * cur_movespeed
+		velocity.x = move_toward(velocity.x, direction.x, _delta*SPEED)
+		velocity.z = move_toward(velocity.z, direction.z, _delta*SPEED)
 		velocity.y = cur_jump_velocity
-	# else:
-	# 	print("not moving?")
-	# 	velocity.x = move_toward(velocity.x, 0, SPEED)
-	# 	velocity.z = move_toward(velocity.z, 0, SPEED)
+	else: 
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 func handle_animations()->void:
 	var idle:bool = false

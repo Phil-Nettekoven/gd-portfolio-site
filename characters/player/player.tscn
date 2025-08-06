@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://drpdkmy2ta31k"]
+[gd_scene load_steps=14 format=3 uid="uid://drpdkmy2ta31k"]
 
 [ext_resource type="Script" uid="uid://qd54rs2lhm00" path="res://characters/player/player.gd" id="1_xxgcw"]
 [ext_resource type="Texture2D" uid="uid://f547568wka2q" path="res://characters/player/pothead.png" id="2_xxgcw"]
+[ext_resource type="Script" uid="uid://ybfcsej5wgx3" path="res://characters/player/camera_control.gd" id="3_exd8k"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b886q"]
 
@@ -116,6 +117,7 @@ metadata/_edit_lock_ = true
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 offset = Vector2(0, 16)
+billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_5dc8e")
 animation = &"idle_down"
@@ -124,5 +126,15 @@ metadata/_edit_lock_ = true
 
 [node name="jump_timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="SpringArm3D" type="SpringArm3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0125256, 1.32809, 0)
+spring_length = 10.0
+script = ExtResource("3_exd8k")
+metadata/_edit_lock_ = true
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
+fov = 90.0
+metadata/_edit_lock_ = true
 
 [connection signal="timeout" from="jump_timer" to="." method="_on_timer_timeout"]

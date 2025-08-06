@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="portfolio-game"
-run/main_scene="uid://cvtk4i1kxpglb"
+run/main_scene="uid://b7uy4xiwhjdw6"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/show_image=false
 
