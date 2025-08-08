@@ -17,11 +17,6 @@ metadata/_edit_lock_ = true
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.60308, 2.40946, -0.406272)
 
-[node name="Camera3D" type="Camera3D" parent="player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 1.093, 6.722)
-fov = 90.0
-metadata/_edit_lock_ = true
-
 [node name="side_scroll_area" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.0509, 0, 0)
 script = ExtResource("3_mlusu")

@@ -67,6 +67,12 @@ jump_mod={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="terrain"
+3d_physics/layer_2="player"
+3d_physics/layer_3="npc"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

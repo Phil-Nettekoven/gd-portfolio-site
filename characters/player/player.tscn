@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://qd54rs2lhm00" path="res://characters/player/player.gd" id="1_xxgcw"]
 [ext_resource type="Texture2D" uid="uid://f547568wka2q" path="res://characters/player/pothead.png" id="2_xxgcw"]
-[ext_resource type="Script" uid="uid://ybfcsej5wgx3" path="res://characters/player/camera_control.gd" id="3_exd8k"]
+[ext_resource type="Script" uid="uid://ybfcsej5wgx3" path="res://characters/player/camera_pivot.gd" id="3_exd8k"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b886q"]
 
@@ -106,6 +106,9 @@ animations = [{
 }]
 
 [node name="player" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 5
+platform_floor_layers = 4294967041
 script = ExtResource("1_xxgcw")
 metadata/_edit_lock_ = true
 
@@ -127,13 +130,17 @@ metadata/_edit_lock_ = true
 [node name="jump_timer" type="Timer" parent="."]
 one_shot = true
 
-[node name="SpringArm3D" type="SpringArm3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0125256, 1.32809, 0)
-spring_length = 10.0
+[node name="camera_pivot" type="Node3D" parent="."]
 script = ExtResource("3_exd8k")
 metadata/_edit_lock_ = true
 
-[node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
+[node name="SpringArm3D" type="SpringArm3D" parent="camera_pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0125256, 1.32809, 0)
+spring_length = 10.0
+metadata/_edit_lock_ = true
+
+[node name="camera" type="Camera3D" parent="camera_pivot/SpringArm3D"]
+unique_name_in_owner = true
 fov = 90.0
 metadata/_edit_lock_ = true
 
