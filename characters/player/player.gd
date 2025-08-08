@@ -62,11 +62,11 @@ func free_movement(_delta:float)->void:
 	var direction:Vector3 = Vector3(input_dir.x,0,input_dir.y).normalized()
 	direction = direction.rotated(Vector3.UP, camera.global_rotation.y)
 	
-	if direction:
+	if direction: #Moving
 		direction *= MAX_SPEED
 		velocity.x = move_toward(velocity.x, direction.x, _delta * ACCELERATION)
 		velocity.z = move_toward(velocity.z, direction.z, _delta * ACCELERATION)
-	else:
+	else: #Stop
 		velocity.x = move_toward(velocity.x, 0, _delta * DECELERATION)
 		velocity.z = move_toward(velocity.z, 0, _delta * DECELERATION)
 

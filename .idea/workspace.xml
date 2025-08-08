@@ -6,12 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9876e070-cf0d-43d1-86d5-5b5a8fef6d14" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/characters/player/camera_control.gd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/characters/player/camera_control.gd.uid" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/characters/player/player.gd" beforeDir="false" afterPath="$PROJECT_DIR$/characters/player/player.gd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/characters/player/player.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/characters/player/player.tscn" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project.godot" beforeDir="false" afterPath="$PROJECT_DIR$/project.godot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scenes/lobby/lobby.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/scenes/lobby/lobby.tscn" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +74,7 @@
       <workItem from="1754548313713" duration="623000" />
       <workItem from="1754609708070" duration="128000" />
       <workItem from="1754609913439" duration="13280000" />
-      <workItem from="1754638799299" duration="1407000" />
+      <workItem from="1754638799299" duration="2724000" />
     </task>
     <servers />
   </component>
