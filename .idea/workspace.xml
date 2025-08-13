@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="9876e070-cf0d-43d1-86d5-5b5a8fef6d14" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/characters/player/camera_pivot.gd" beforeDir="false" afterPath="$PROJECT_DIR$/characters/player/camera_pivot.gd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/characters/player/player.gd" beforeDir="false" afterPath="$PROJECT_DIR$/characters/player/player.gd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project.godot" beforeDir="false" afterPath="$PROJECT_DIR$/project.godot" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scenes/world_1/world_1.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/scenes/world_1/world_1.tscn" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +77,8 @@
       <workItem from="1754609913439" duration="13280000" />
       <workItem from="1754638799299" duration="2760000" />
       <workItem from="1754729956497" duration="507000" />
-      <workItem from="1754896515554" duration="3638000" />
+      <workItem from="1754896515554" duration="3928000" />
+      <workItem from="1755031490117" duration="12757000" />
     </task>
     <servers />
   </component>

@@ -5,9 +5,12 @@ extends CharacterBody3D
 var can_jump:bool = true
 
 const MAX_SPEED:float  = 100
+const SPRINT_MAX_SPEED:float = MAX_SPEED*2
 const SPRINT_MOD:float = 2.0
 const ACCELERATION:float = 50
-const DECELERATION:float = 40
+const SPRINT_ACCELERATION:float = ACCELERATION*1.25
+const DECELERATION:float = 100
+const SPRINT_DECELERATION:float = DECELERATION*0.5
 
 const JUMP_VELOCITY:float = 20
 const JUMP_MOD:float = 1.25
@@ -64,56 +67,28 @@ func free_movement(_delta:float)->void:
 	direction = direction.rotated(Vector3.UP, camera.global_rotation.y)
 	
 	var cur_jump_velocity:float = JUMP_VELOCITY
+	var cur_acceleration:float = ACCELERATION
+	var cur_deceleration:float = DECELERATION
 	var target_movespeed:float  = MAX_SPEED
 
 	if is_on_floor() && Input.is_action_pressed("sprint"):
-		target_movespeed *= SPRINT_MOD
+		target_movespeed = SPRINT_MAX_SPEED
 		cur_jump_velocity *= JUMP_MOD
+		cur_acceleration = SPRINT_ACCELERATION
+		cur_deceleration = SPRINT_DECELERATION
 		
 	if direction: #Moving
 		direction *= target_movespeed
-		velocity.x = move_toward(velocity.x, direction.x, _delta * ACCELERATION)
-		velocity.z = move_toward(velocity.z, direction.z, _delta * ACCELERATION)
+		velocity.x = move_toward(velocity.x, direction.x, _delta * cur_acceleration)
+		velocity.z = move_toward(velocity.z, direction.z, _delta * cur_acceleration)
 	elif is_on_floor(): #Decelerate if on floor
-		velocity.x = move_toward(velocity.x, 0, _delta * DECELERATION)
-		velocity.z = move_toward(velocity.z, 0, _delta * DECELERATION)
+		velocity.x = move_toward(velocity.x, 0, _delta * cur_deceleration)
+		velocity.z = move_toward(velocity.z, 0, _delta * cur_deceleration)
 	
 	if is_on_floor() && Input.is_action_pressed("jump"):
 		velocity.y = cur_jump_velocity
 
 	move_and_slide()
-#	if not (is_on_floor() and velocity.y <= 0): return
-#	
-#	if velocity.
-
-#func free_movement_old(_delta:float)->void:
-#	
-#	if not is_on_floor():
-#		velocity += (get_gravity() * 1) * _delta
-#		return
-#
-##	velocity.x = 0
-##	velocity.z = 0
-#
-#	#var dir = Vector3(input.x, 0, input.y).rotated(Vector3.UP, spring_arm.rotation.y)	
-#	var input_dir :Vector2= Input.get_vector("left", "right", "up", "down")
-#	var direction :Vector3 = Vector3(input_dir.x, 0, input_dir.y).normalized()
-#	direction = direction.rotated(Vector3.UP, camera.global_position.y)
-#	
-#	var cur_movespeed:float = SPEED
-#	var cur_jump_velocity:float = JUMP_VELOCITY
-#	if Input.is_action_pressed("sprint"):
-#		cur_movespeed *= SPRINT_MOD
-#		cur_jump_velocity *= JUMP_MOD
-#
-#	if direction:
-#		velocity.x = move_toward(velocity.x, direction.x, _delta*cur_movespeed)
-#		velocity.z = move_toward(velocity.z, direction.z, _delta*cur_movespeed)
-#		velocity.y = cur_jump_velocity
-#	else: 
-#		velocity.x = move_toward(velocity.x, 0, cur_movespeed)
-#		velocity.z = move_toward(velocity.z, 0, cur_movespeed)
-
 func handle_animations()->void:
 	var idle:bool = false
 	var movement_direction:String = ""
@@ -157,6 +132,7 @@ func _on_timer_timeout() -> void:
 	can_jump = true
 
 func _process(delta: float) -> void:
+	print(velocity.y)
 	if Input.is_action_just_pressed("reset"):
 		reset()
 	if state == STATE.pathing:

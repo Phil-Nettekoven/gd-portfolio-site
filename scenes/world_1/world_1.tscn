@@ -1,13 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://b7uy4xiwhjdw6"]
+[gd_scene load_steps=4 format=3 uid="uid://b7uy4xiwhjdw6"]
 
+[ext_resource type="Script" uid="uid://buprw75v5nlri" path="res://scenes/world_1/world_1.gd" id="1_85w3x"]
 [ext_resource type="PackedScene" uid="uid://onargffn2mop" path="res://scenes/world_1/model/world_1.gltf" id="2_85w3x"]
 [ext_resource type="PackedScene" uid="uid://drpdkmy2ta31k" path="res://characters/player/player.tscn" id="2_ic8tw"]
 
 [node name="World1" type="Node2D"]
+script = ExtResource("1_85w3x")
+tile_scene = ExtResource("2_85w3x")
 
 [node name="player" parent="." instance=ExtResource("2_ic8tw")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.603, 15.674, -0.406)
-
-[node name="default2" parent="." instance=ExtResource("2_85w3x")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -48.2819, 10.0621, -181.248)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 143.969, 47.7369, 150.39)
+wall_min_slide_angle = 3.14159
