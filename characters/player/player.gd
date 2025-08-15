@@ -87,6 +87,8 @@ func free_movement(_delta:float)->void:
 	
 	if is_on_floor() && Input.is_action_pressed("jump"):
 		velocity.y = cur_jump_velocity
+		
+	print(get_floor_angle())
 
 	move_and_slide()
 func handle_animations()->void:
@@ -132,7 +134,6 @@ func _on_timer_timeout() -> void:
 	can_jump = true
 
 func _process(delta: float) -> void:
-	print(velocity.y)
 	if Input.is_action_just_pressed("reset"):
 		reset()
 	if state == STATE.pathing:
