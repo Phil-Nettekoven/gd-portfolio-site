@@ -17,6 +17,8 @@ const JUMP_MOD:float = 1.25
 const JUMP_COOLDOWN:float = 0.05
 const GRAVITY_MOD:float = 2.0
 
+
+
 @onready var starting_pos:Vector3 = self.global_position
 
 enum STATE {pathing, free, disabled}
@@ -24,18 +26,25 @@ var state:STATE = STATE.free
 
 @onready var animated_sprite:AnimatedSprite3D = $AnimatedSprite3D
 var player_direction:String = "down"
+var input_dir:Vector2 = Vector2.DOWN
+
+signal just_touched_ground
+var touched_ground:bool = false
+
+func _ready() -> void:
+	pass
 
 func path_movement(_delta:float)->void:
 	if not is_on_floor():
 		velocity += (get_gravity() * GRAVITY_MOD) * _delta
 		return
+	
 
 	# if jump_timer.is_stopped() && not can_jump: #Start timer once the player has hit the ground again
 	# 	jump_timer.start(JUMP_COOLDOWN)
 	# 	return
 
 	velocity.x = 0
-
 	#if !can_jump: return
 	if !(Input.is_action_pressed("left") || Input.is_action_pressed("right")): return
 	var direction:Vector2 = Input.get_vector("left", "right", "up", "down").normalized()
@@ -61,8 +70,12 @@ func free_movement(_delta:float)->void:
 		velocity += (get_gravity() * GRAVITY_MOD) * _delta
 		#move_and_slide()
 		#return
-		
-	var input_dir:Vector2 = Input.get_vector("left","right","up","down")
+	
+	if touched_ground == false && is_on_floor(): #Emit the first time player touches the ground
+		touched_ground = true
+		just_touched_ground.emit()
+	
+	input_dir = Input.get_vector("left","right","up","down")
 	var direction:Vector3 = Vector3(input_dir.x,0,input_dir.y).normalized()
 	direction = direction.rotated(Vector3.UP, camera.global_rotation.y)
 	
@@ -88,7 +101,7 @@ func free_movement(_delta:float)->void:
 	if is_on_floor() && Input.is_action_pressed("jump"):
 		velocity.y = cur_jump_velocity
 		
-	print(get_floor_angle())
+	#print(get_floor_angle())
 
 	move_and_slide()
 func handle_animations()->void:
@@ -99,13 +112,13 @@ func handle_animations()->void:
 	if velocity.x == 0.0 && velocity.z == 0.0:
 		idle = true
 
-	if velocity.x > 0:
+	if input_dir.x > 0:
 		movement_direction += "right"
-	elif velocity.x < 0:
+	elif input_dir.x < 0:
 		movement_direction += "left"
-	elif velocity.z < 0:
+	elif input_dir.y < 0:
 		movement_direction += "up"
-	elif velocity.z > 0:
+	elif input_dir.y > 0:
 		movement_direction += "down"
 	else:
 		movement_direction = player_direction
@@ -132,7 +145,7 @@ func change_state(new_state_name:String)->void:
 
 func _on_timer_timeout() -> void:
 	can_jump = true
-
+	
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("reset"):
 		reset()

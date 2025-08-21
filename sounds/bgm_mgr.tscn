@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://pdah50dfaal"]
+
+[ext_resource type="Script" uid="uid://7lyr48jmhfm" path="res://scenes/world_1/bgm_mgr.gd" id="1_5s6vj"]
+[ext_resource type="AudioStream" uid="uid://ifduyw7enrip" path="res://sounds/music/michael_bgm/drums.mp3" id="3_8khnp"]
+[ext_resource type="AudioStream" uid="uid://e5u2x7offpxy" path="res://sounds/music/michael_bgm/bass.mp3" id="3_m4bb4"]
+[ext_resource type="AudioStream" uid="uid://cntqv81lumu5r" path="res://sounds/music/michael_bgm/chords.mp3" id="4_stiy4"]
+[ext_resource type="AudioStream" uid="uid://bxk3qa1bc7mmn" path="res://sounds/music/michael_bgm/leads.mp3" id="5_e7lhu"]
+
+[node name="bgm_mgr" type="Node"]
+script = ExtResource("1_5s6vj")
+drum_mp3 = ExtResource("3_8khnp")
+bass_mp3 = ExtResource("3_m4bb4")
+chords_mp3 = ExtResource("4_stiy4")
+leads_mp3 = ExtResource("5_e7lhu")
+
+[node name="drums" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
+
+[node name="bass" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
+
+[node name="chords" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
+
+[node name="leads" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
