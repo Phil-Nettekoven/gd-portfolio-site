@@ -18,7 +18,7 @@ signal just_touched_ground
 var touched_ground:bool = false
 
 func _ready() -> void:
-	pass
+	velocity.y = -20
 	
 func free_movement(_delta:float)->void:
 	if not is_on_floor():
@@ -105,6 +105,8 @@ func _on_timer_timeout() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("reset"):
 		reset()
+	if Input.is_action_just_pressed("quit"):
+		get_tree().quit()
 	if state == STATE.free:
 		free_movement(delta)
 	else: ##DISABLED

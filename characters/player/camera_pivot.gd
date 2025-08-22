@@ -8,6 +8,8 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 func _unhandled_input(event: InputEvent) -> void:
+	if Input.is_action_pressed("lock_camera"):
+		return
 	if event is not InputEventMouseMotion: 
 		return
 	
