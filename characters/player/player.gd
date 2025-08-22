@@ -4,22 +4,8 @@ extends CharacterBody3D
 @onready var camera:Camera3D = %camera
 var can_jump:bool = true
 
-const MAX_SPEED:float  = 100
-const SPRINT_MAX_SPEED:float = MAX_SPEED*2
-const SPRINT_MOD:float = 2.0
-const ACCELERATION:float = 50
-const SPRINT_ACCELERATION:float = ACCELERATION*1.25
-const DECELERATION:float = 100
-const SPRINT_DECELERATION:float = DECELERATION*0.5
-
-const JUMP_VELOCITY:float = 20
-const JUMP_MOD:float = 1.25
-const JUMP_COOLDOWN:float = 0.05
-const GRAVITY_MOD:float = 2.0
-
-
-
 @onready var starting_pos:Vector3 = self.global_position
+var prev_velocity:Vector3 = Vector3.ZERO
 
 enum STATE {pathing, free, disabled}
 var state:STATE = STATE.free
@@ -33,62 +19,35 @@ var touched_ground:bool = false
 
 func _ready() -> void:
 	pass
-
-func path_movement(_delta:float)->void:
-	if not is_on_floor():
-		velocity += (get_gravity() * GRAVITY_MOD) * _delta
-		return
 	
-
-	# if jump_timer.is_stopped() && not can_jump: #Start timer once the player has hit the ground again
-	# 	jump_timer.start(JUMP_COOLDOWN)
-	# 	return
-
-	velocity.x = 0
-	#if !can_jump: return
-	if !(Input.is_action_pressed("left") || Input.is_action_pressed("right")): return
-	var direction:Vector2 = Input.get_vector("left", "right", "up", "down").normalized()
-
-	var cur_movespeed:float = MAX_SPEED
-	var cur_jump_velocity:float = JUMP_VELOCITY
-	
-	if Input.is_action_pressed("sprint"):
-		cur_movespeed *= SPRINT_MOD
-		cur_jump_velocity *= JUMP_MOD
-
-	if direction:
-		velocity.x = direction.x * cur_movespeed
-	else:
-		velocity.x = move_toward(velocity.x, 0, cur_movespeed)
-
-	if direction.x != 0:
-		velocity.y = cur_jump_velocity
-		#can_jump = false
-
 func free_movement(_delta:float)->void:
 	if not is_on_floor():
-		velocity += (get_gravity() * GRAVITY_MOD) * _delta
+		velocity += (get_gravity() * Globals.GRAVITY_MOD) * _delta
 		#move_and_slide()
 		#return
 	
-	if touched_ground == false && is_on_floor(): #Emit the first time player touches the ground
-		touched_ground = true
-		just_touched_ground.emit()
+	if touched_ground == false: #Emit the first time player touches the ground
+		if is_on_floor():
+			touched_ground = true
+			just_touched_ground.emit()
+		else:
+			move_and_slide()
+			return
 	
 	input_dir = Input.get_vector("left","right","up","down")
 	var direction:Vector3 = Vector3(input_dir.x,0,input_dir.y).normalized()
 	direction = direction.rotated(Vector3.UP, camera.global_rotation.y)
 	
-	var cur_jump_velocity:float = JUMP_VELOCITY
-	var cur_acceleration:float = ACCELERATION
-	var cur_deceleration:float = DECELERATION
-	var target_movespeed:float  = MAX_SPEED
+	var cur_jump_velocity:float = Globals.JUMP_VELOCITY
+	var cur_acceleration:float = Globals.ACCELERATION
+	var cur_deceleration:float = Globals.DECELERATION
+	var target_movespeed:float  = Globals.MAX_SPEED
 
 	if is_on_floor() && Input.is_action_pressed("sprint"):
-		target_movespeed = SPRINT_MAX_SPEED
-		cur_jump_velocity *= JUMP_MOD
-		cur_acceleration = SPRINT_ACCELERATION
-		cur_deceleration = SPRINT_DECELERATION
+		target_movespeed = Globals.SPRINT_MAX_SPEED
+		cur_jump_velocity *= Globals.JUMP_MOD
+		cur_acceleration = Globals.SPRINT_ACCELERATION
+		cur_deceleration = Globals.SPRINT_DECELERATION
 		
 	if direction: #Moving
 		direction *= target_movespeed
@@ -100,9 +59,7 @@ func free_movement(_delta:float)->void:
 	
 	if is_on_floor() && Input.is_action_pressed("jump"):
 		velocity.y = cur_jump_velocity
-		
-	#print(get_floor_angle())
-
+	
 	move_and_slide()
 func handle_animations()->void:
 	var idle:bool = false
@@ -142,19 +99,17 @@ func change_state(new_state_name:String)->void:
 		
 	state = new_state
 
-
 func _on_timer_timeout() -> void:
 	can_jump = true
 	
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("reset"):
 		reset()
-	if state == STATE.pathing:
-		path_movement(delta)
-	elif state == STATE.free:
+	if state == STATE.free:
 		free_movement(delta)
 	else: ##DISABLED
 		return
+		
 	handle_animations()
 	
 func reset()->void:
