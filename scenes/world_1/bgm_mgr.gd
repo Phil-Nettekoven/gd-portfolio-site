@@ -23,18 +23,18 @@ var is_playing:bool = true
 var prev_speed:float = 0.0
 
 func _ready() -> void:
-	#drum_mp3.loop = true
+	drum_mp3.loop = true
 	drums.stream = drum_mp3
-	drums.finished.connect(_on_drums_finished)
+	#drums.finished.connect(_on_drums_finished)
 	
 	#bass_mp3.loop = true
-	bass.stream = bass_mp3
+	#bass.stream = bass_mp3
 	
 	#chords_mp3.loop = true
-	chords.stream = chords_mp3
+	#chords.stream = chords_mp3
 	
 	#leads_mp3.loop = true
-	leads.stream = leads_mp3
+	#leads.stream = leads_mp3
 
 	#animation_player.play(ANIMATION_NAME)
 	for p:AudioStreamPlayer in audio_streams:
@@ -47,16 +47,15 @@ func _on_ground_touched()->void:
 
 func pause_all()->void:
 	if !is_playing: return
+	drums.stream_paused = true
 
-	for p:AudioStreamPlayer in audio_streams:
-		p.stream_paused = true
 	is_playing = false
 	
 func resume_all()->void:
 	if is_playing: return
-
-	for p:AudioStreamPlayer in audio_streams:
-		p.stream_paused = false
+	drums.stream_paused = false
+#	for p:AudioStreamPlayer in audio_streams:
+#		p.stream_paused = false
 	is_playing = true
 	
 func modulate_pitch_by_velocity()->void:
@@ -74,10 +73,12 @@ func modulate_pitch_by_velocity()->void:
 	prev_speed = speed
 	animation_player.seek(speed_ratio)
 
-func _on_drums_finished()->void:
-	for p:AudioStreamPlayer in audio_streams:
-		p.seek(0.0)
-		p.play()
+#func _on_drums_finished()->void:
+#	drums.seek(0.0)
+#	drums.play()
+##	for p:AudioStreamPlayer in audio_streams:
+##		p.seek(0.0)
+##		p.play()
 
 func _process(_delta: float) -> void:
 	modulate_pitch_by_velocity()
