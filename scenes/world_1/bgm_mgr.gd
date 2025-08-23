@@ -9,10 +9,10 @@ var player_touched_ground:bool = false
 @onready var chords:AudioStreamPlayer = $chords
 @onready var leads:AudioStreamPlayer = $leads
 
-@export var drum_mp3:AudioStreamMP3
-@export var bass_mp3:AudioStreamMP3
-@export var chords_mp3:AudioStreamMP3
-@export var leads_mp3:AudioStreamMP3
+@export var drum_audio:AudioStream
+@export var bass_ogg:AudioStream
+@export var chords_ogg:AudioStream
+@export var leads_ogg:AudioStream
 
 @onready var audio_streams:Array[AudioStreamPlayer] = [drums,bass,chords,leads]
 @onready var animation_player:AnimationPlayer = $AnimationPlayer
@@ -23,8 +23,11 @@ var is_playing:bool = true
 var prev_speed:float = 0.0
 
 func _ready() -> void:
-	drum_mp3.loop = true
-	drums.stream = drum_mp3
+	if !drum_audio:
+		print("No audio file for BGM provided.")
+		return
+	drum_audio.loop = true
+	drums.stream = drum_audio
 	#drums.finished.connect(_on_drums_finished)
 	
 	#bass_mp3.loop = true
