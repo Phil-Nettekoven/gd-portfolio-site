@@ -45,11 +45,31 @@ func _ready() -> void:
 func _on_ground_touched()->void:
 	player_touched_ground = true
 
+func pause_all()->void:
+	if !is_playing: return
+
+	for p:AudioStreamPlayer in audio_streams:
+		p.stream_paused = true
+	is_playing = false
+	
+func resume_all()->void:
+	if is_playing: return
+
+	for p:AudioStreamPlayer in audio_streams:
+		p.stream_paused = false
+	is_playing = true
+	
 func modulate_pitch_by_velocity()->void:
 	if !player_touched_ground: return
 	
 	var speed:float = player_char.velocity.length()
-	
+	if speed <= 0.0:
+		pause_all()
+		return
+		
+	if !is_playing:
+		resume_all()
+		
 	var speed_ratio:float = clamp(speed/Globals.MUSIC_MAX_SPEED, 0.0, 0.99)
 	prev_speed = speed
 	animation_player.seek(speed_ratio)
