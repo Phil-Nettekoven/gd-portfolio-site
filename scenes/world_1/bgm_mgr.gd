@@ -47,16 +47,15 @@ func _on_ground_touched()->void:
 
 func pause_all()->void:
 	if !is_playing: return
+	drums.stream_paused = true
 
-	for p:AudioStreamPlayer in audio_streams:
-		p.stream_paused = true
 	is_playing = false
 	
 func resume_all()->void:
 	if is_playing: return
-
-	for p:AudioStreamPlayer in audio_streams:
-		p.stream_paused = false
+	drums.stream_paused = false
+#	for p:AudioStreamPlayer in audio_streams:
+#		p.stream_paused = false
 	is_playing = true
 	
 func modulate_pitch_by_velocity()->void:
@@ -75,9 +74,11 @@ func modulate_pitch_by_velocity()->void:
 	animation_player.seek(speed_ratio)
 
 func _on_drums_finished()->void:
-	for p:AudioStreamPlayer in audio_streams:
-		p.seek(0.0)
-		p.play()
+	drums.seek(0.0)
+	drums.play()
+#	for p:AudioStreamPlayer in audio_streams:
+#		p.seek(0.0)
+#		p.play()
 
 func _process(_delta: float) -> void:
 	modulate_pitch_by_velocity()
