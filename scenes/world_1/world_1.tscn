@@ -12,6 +12,7 @@ tile_scene = ExtResource("2_85w3x")
 [node name="player" parent="." instance=ExtResource("2_ic8tw")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 143.969, 47.7369, 150.39)
+visible = false
 wall_min_slide_angle = 3.14159
 
 [node name="bgm_mgr" parent="." instance=ExtResource("4_p45x0")]
