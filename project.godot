@@ -22,6 +22,7 @@ buses/default_bus_layout=""
 [autoload]
 
 Globals="*res://autoloads/globals.gd"
+UIMgr="*res://autoloads/ui_mgr/ui_mgr.tscn"
 
 [debug]
 

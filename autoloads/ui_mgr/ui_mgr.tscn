@@ -1,0 +1,83 @@
+[gd_scene load_steps=6 format=3 uid="uid://chxf4071lfr0"]
+
+[ext_resource type="Script" uid="uid://cx3wu85x3ljpy" path="res://autoloads/ui_mgr/ui_mgr.gd" id="1_ibd83"]
+[ext_resource type="Texture2D" uid="uid://dwmuytjutiinr" path="res://art/textures/ui/mobile_button_unpressed.png" id="2_d5b3w"]
+[ext_resource type="Texture2D" uid="uid://437k78mq2qov" path="res://art/textures/ui/mobile_button_pressed.png" id="2_ilfnx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d5b3w"]
+radius = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6hfk6"]
+radius = 14.0
+
+[node name="UiMgr" type="CanvasLayer"]
+layer = 99
+script = ExtResource("1_ibd83")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
+color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
+
+[node name="mobile_controls" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1920.0
+offset_bottom = -1080.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="button_up" type="TouchScreenButton" parent="mobile_controls"]
+modulate = Color(1, 1, 0.14902, 0.352941)
+position = Vector2(354, 437)
+scale = Vector2(6.28125, 6.28125)
+texture_normal = ExtResource("2_d5b3w")
+texture_pressed = ExtResource("2_ilfnx")
+shape = SubResource("CircleShape2D_d5b3w")
+action = "up"
+metadata/_edit_lock_ = true
+
+[node name="button_down" type="TouchScreenButton" parent="mobile_controls"]
+modulate = Color(1, 1, 0.14902, 0.352941)
+position = Vector2(354, 697)
+scale = Vector2(6.28125, 6.28125)
+texture_normal = ExtResource("2_d5b3w")
+texture_pressed = ExtResource("2_ilfnx")
+shape = SubResource("CircleShape2D_d5b3w")
+action = "down"
+metadata/_edit_lock_ = true
+
+[node name="button_left" type="TouchScreenButton" parent="mobile_controls"]
+modulate = Color(1, 1, 0.14902, 0.352941)
+position = Vector2(185, 563)
+scale = Vector2(6.28125, 6.28125)
+texture_normal = ExtResource("2_d5b3w")
+texture_pressed = ExtResource("2_ilfnx")
+shape = SubResource("CircleShape2D_d5b3w")
+action = "left"
+metadata/_edit_lock_ = true
+
+[node name="button_right" type="TouchScreenButton" parent="mobile_controls"]
+modulate = Color(1, 1, 0.14902, 0.352941)
+position = Vector2(523, 563)
+scale = Vector2(6.28125, 6.28125)
+texture_normal = ExtResource("2_d5b3w")
+texture_pressed = ExtResource("2_ilfnx")
+shape = SubResource("CircleShape2D_d5b3w")
+action = "right"
+metadata/_edit_lock_ = true
+
+[node name="button_jump" type="TouchScreenButton" parent="mobile_controls"]
+modulate = Color(1, 1, 0.14902, 0.352941)
+position = Vector2(804, 712)
+scale = Vector2(6.28125, 6.28125)
+texture_normal = ExtResource("2_d5b3w")
+texture_pressed = ExtResource("2_ilfnx")
+shape = SubResource("CircleShape2D_6hfk6")
+action = "jump"
+metadata/_edit_lock_ = true

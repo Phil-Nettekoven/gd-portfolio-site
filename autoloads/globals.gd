@@ -14,3 +14,19 @@ const JUMP_COOLDOWN:float = 0.05
 const GRAVITY_MOD:float = 2.0
 
 const MUSIC_MAX_SPEED:float = MAX_SPEED/4 #The player's speed at which the BGM will play at pitch = 1.0
+
+var OS_TYPE:String = ""
+var is_mobile:bool = false
+
+func _ready() -> void:
+	if OS.has_feature("web_android"):
+		OS_TYPE = "web_android"
+		is_mobile = true
+	elif OS.has_feature("web_ios"):
+		OS_TYPE = "web_ios"
+		is_mobile = true
+	elif OS.has_feature("web"):
+		OS_TYPE = "web_desktop"
+	else:
+		OS_TYPE = "desktop"
+	print(OS_TYPE)

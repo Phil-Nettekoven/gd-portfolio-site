@@ -5,7 +5,7 @@ extends Node3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	pass
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_pressed("lock_camera"):
@@ -13,7 +13,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is not InputEventMouseMotion: 
 		return
 	
-	if (Input.mouse_mode != Input.MOUSE_MODE_CAPTURED):
+	if Globals.OS_TYPE == "web_desktop" && (Input.mouse_mode != Input.MOUSE_MODE_CAPTURED):
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 	rotation.x -= event.relative.y * mouse_sensitivity

@@ -43,11 +43,12 @@ func free_movement(_delta:float)->void:
 	var cur_deceleration:float = Globals.DECELERATION
 	var target_movespeed:float  = Globals.MAX_SPEED
 
-	if is_on_floor() && Input.is_action_pressed("sprint"):
-		target_movespeed = Globals.SPRINT_MAX_SPEED
-		cur_jump_velocity *= Globals.JUMP_MOD
-		cur_acceleration = Globals.SPRINT_ACCELERATION
-		cur_deceleration = Globals.SPRINT_DECELERATION
+	if is_on_floor():
+		if Globals.is_mobile ||  Input.is_action_pressed("sprint"):
+			target_movespeed = Globals.SPRINT_MAX_SPEED
+			cur_jump_velocity *= Globals.JUMP_MOD
+			cur_acceleration = Globals.SPRINT_ACCELERATION
+			cur_deceleration = Globals.SPRINT_DECELERATION
 		
 	if direction: #Moving
 		direction *= target_movespeed
@@ -105,7 +106,7 @@ func _on_timer_timeout() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("reset"):
 		reset()
-	if Input.is_action_just_pressed("quit"):
+	if Input.is_action_just_pressed("quit") && Globals.is_mobile == false:
 		get_tree().quit()
 	if state == STATE.free:
 		free_movement(delta)
