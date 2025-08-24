@@ -21,8 +21,14 @@ func _ready() -> void:
 	velocity.y = -20
 	
 func free_movement(_delta:float)->void:
+	var cur_jump_velocity:float = Globals.JUMP_VELOCITY
+	var cur_acceleration:float = Globals.ACCELERATION
+	var cur_deceleration:float = Globals.DECELERATION
+	var target_movespeed:float = Globals.MAX_SPEED
+	
 	if not is_on_floor():
 		velocity += (get_gravity() * Globals.GRAVITY_MOD) * _delta
+		cur_deceleration = Globals.AIR_DECELERATION
 		#move_and_slide()
 		#return
 	
@@ -37,11 +43,6 @@ func free_movement(_delta:float)->void:
 	input_dir = Input.get_vector("left","right","up","down")
 	var direction:Vector3 = Vector3(input_dir.x,0,input_dir.y).normalized()
 	direction = direction.rotated(Vector3.UP, camera.global_rotation.y)
-	
-	var cur_jump_velocity:float = Globals.JUMP_VELOCITY
-	var cur_acceleration:float = Globals.ACCELERATION
-	var cur_deceleration:float = Globals.DECELERATION
-	var target_movespeed:float  = Globals.MAX_SPEED
 
 	if is_on_floor():
 		if Globals.is_mobile ||  Input.is_action_pressed("sprint"):
@@ -49,17 +50,19 @@ func free_movement(_delta:float)->void:
 			cur_jump_velocity *= Globals.JUMP_MOD
 			cur_acceleration = Globals.SPRINT_ACCELERATION
 			cur_deceleration = Globals.SPRINT_DECELERATION
+	
+	if is_on_floor() && Input.is_action_pressed("jump"):
+		velocity.y = cur_jump_velocity
 		
+	
 	if direction: #Moving
 		direction *= target_movespeed
 		velocity.x = move_toward(velocity.x, direction.x, _delta * cur_acceleration)
 		velocity.z = move_toward(velocity.z, direction.z, _delta * cur_acceleration)
-	elif is_on_floor(): #Decelerate if on floor
+	else: #Decelerate if on floor
+		
 		velocity.x = move_toward(velocity.x, 0, _delta * cur_deceleration)
 		velocity.z = move_toward(velocity.z, 0, _delta * cur_deceleration)
-	
-	if is_on_floor() && Input.is_action_pressed("jump"):
-		velocity.y = cur_jump_velocity
 	
 	move_and_slide()
 func handle_animations()->void:

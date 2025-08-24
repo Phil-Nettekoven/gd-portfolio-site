@@ -5,8 +5,10 @@ const SPRINT_MAX_SPEED:float = MAX_SPEED*2
 const SPRINT_MOD:float = 2.0
 const ACCELERATION:float = 50
 const SPRINT_ACCELERATION:float = ACCELERATION*1.25
+
 const DECELERATION:float = 100
 const SPRINT_DECELERATION:float = DECELERATION*0.5
+const AIR_DECELERATION:float = 15.0
 
 const JUMP_VELOCITY:float = 20
 const JUMP_MOD:float = 1.25
