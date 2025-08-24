@@ -109,7 +109,7 @@ func _on_timer_timeout() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("reset"):
 		reset()
-	if Input.is_action_just_pressed("quit") && Globals.is_mobile == false:
+	if Input.is_action_just_pressed("quit") && OS.has_feature("editor"):
 		get_tree().quit()
 	if state == STATE.free:
 		free_movement(delta)

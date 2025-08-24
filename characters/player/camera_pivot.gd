@@ -8,10 +8,12 @@ func _ready() -> void:
 	pass
 	
 func _unhandled_input(event: InputEvent) -> void:
+	print(event is InputEventScreenTouch || event is InputEventScreenDrag)
 	if Input.is_action_pressed("lock_camera"):
 		return
 	if event is not InputEventMouseMotion: 
 		return
+	
 	
 	if Globals.OS_TYPE == "web_desktop" && (Input.mouse_mode != Input.MOUSE_MODE_CAPTURED):
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

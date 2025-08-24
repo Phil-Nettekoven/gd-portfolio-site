@@ -32,3 +32,12 @@ func _ready() -> void:
 	else:
 		OS_TYPE = "desktop"
 	print(OS_TYPE)
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+		get_tree().paused = true
+	elif what == NOTIFICATION_APPLICATION_FOCUS_IN:
+		get_tree().paused = false
+
+func _process(_delta: float) -> void:
+	pass

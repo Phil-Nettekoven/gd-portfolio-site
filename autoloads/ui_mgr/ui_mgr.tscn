@@ -39,6 +39,7 @@ scale = Vector2(6.28125, 6.28125)
 texture_normal = ExtResource("2_d5b3w")
 texture_pressed = ExtResource("2_ilfnx")
 shape = SubResource("CircleShape2D_d5b3w")
+passby_press = true
 action = "up"
 metadata/_edit_lock_ = true
 
@@ -49,6 +50,7 @@ scale = Vector2(6.28125, 6.28125)
 texture_normal = ExtResource("2_d5b3w")
 texture_pressed = ExtResource("2_ilfnx")
 shape = SubResource("CircleShape2D_d5b3w")
+passby_press = true
 action = "down"
 metadata/_edit_lock_ = true
 
@@ -59,6 +61,7 @@ scale = Vector2(6.28125, 6.28125)
 texture_normal = ExtResource("2_d5b3w")
 texture_pressed = ExtResource("2_ilfnx")
 shape = SubResource("CircleShape2D_d5b3w")
+passby_press = true
 action = "left"
 metadata/_edit_lock_ = true
 
@@ -69,6 +72,7 @@ scale = Vector2(6.28125, 6.28125)
 texture_normal = ExtResource("2_d5b3w")
 texture_pressed = ExtResource("2_ilfnx")
 shape = SubResource("CircleShape2D_d5b3w")
+passby_press = true
 action = "right"
 metadata/_edit_lock_ = true
 
@@ -79,5 +83,6 @@ scale = Vector2(6.28125, 6.28125)
 texture_normal = ExtResource("2_d5b3w")
 texture_pressed = ExtResource("2_ilfnx")
 shape = SubResource("CircleShape2D_6hfk6")
+passby_press = true
 action = "jump"
 metadata/_edit_lock_ = true
