@@ -2,7 +2,9 @@ extends CharacterBody3D
 
 @onready var jump_timer:Timer = $jump_timer
 @onready var camera:Camera3D = %camera
-var can_jump:bool = true
+@onready var camera_pivot:Node3D = $camera_pivot
+@onready var sprite:AnimatedSprite3D = $AnimatedSprite3D
+var rotation_velocity:Vector2 = Vector2.ZERO
 
 @onready var starting_pos:Vector3 = self.global_position
 var prev_velocity:Vector3 = Vector3.ZERO
@@ -18,6 +20,9 @@ signal just_touched_ground
 var touched_ground:bool = false
 
 func _ready() -> void:
+	camera_pivot.locked_camera_pivot.connect(_on_locked_camera_pivot)
+	camera_pivot.camera_locked.connect(_on_camera_locked)
+	camera_pivot.camera_unlocked.connect(_on_camera_unlocked)
 	velocity.y = -20
 	
 func free_movement(_delta:float)->void:
@@ -103,14 +108,8 @@ func change_state(new_state_name:String)->void:
 		
 	state = new_state
 
-func _on_timer_timeout() -> void:
-	can_jump = true
-	
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("reset"):
-		reset()
-	if Input.is_action_just_pressed("quit") && OS.has_feature("editor"):
-		get_tree().quit()
+
 	if state == STATE.free:
 		free_movement(delta)
 	else: ##DISABLED
@@ -118,6 +117,40 @@ func _process(delta: float) -> void:
 		
 	handle_animations()
 	
+	if camera_pivot.is_camera_locked:
+		rotate_sprite(delta)
+
+func rotate_sprite(_delta:float) ->void:
+	sprite.rotation.x = move_toward(sprite.rotation.x, rotation_velocity.x, _delta * 30)
+	sprite.rotation.y = move_toward(sprite.rotation.y, rotation_velocity.y, _delta * 30)
+
+func _input(_event: InputEvent) -> void:
+	if Input.is_action_just_pressed("reset"):
+		reset()
+	elif Input.is_action_just_pressed("quit") && OS.has_feature("editor"):
+		get_tree().quit()
+
+func _on_camera_locked()->void:
+	sprite.rotation.x = 0
+	
+	rotation_velocity.x = sprite.rotation.x
+	rotation_velocity.y = sprite.rotation.y
+	
+	rotation_velocity = Vector2.ZERO
+	sprite.billboard = BaseMaterial3D.BILLBOARD_DISABLED
+
+func _on_camera_unlocked()->void:
+	sprite.billboard = BaseMaterial3D.BILLBOARD_FIXED_Y
+	sprite.rotation.x = 0
+	sprite.rotation.y = camera_pivot.rotation.y
+	
+	rotation_velocity.x = sprite.rotation.x
+	rotation_velocity.y = sprite.rotation.y
+	
+func _on_locked_camera_pivot(pivot_value:Vector2) ->void:
+	rotation_velocity -= pivot_value * 10
+	
+
 func reset()->void:
 	self.global_position = starting_pos
 	velocity = Vector3.ZERO

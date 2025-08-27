@@ -17,7 +17,7 @@ boot_splash/show_image=false
 
 [audio]
 
-buses/default_bus_layout=""
+buses/default_bus_layout="uid://ta1fi6jre5c0"
 
 [autoload]
 

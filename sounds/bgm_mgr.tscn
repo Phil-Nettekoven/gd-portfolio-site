@@ -65,15 +65,19 @@ drum_audio = ExtResource("5_m4bb4")
 
 [node name="drums" type="AudioStreamPlayer" parent="."]
 pitch_scale = 0.01
+bus = &"Music"
 
 [node name="bass" type="AudioStreamPlayer" parent="."]
 pitch_scale = 0.01
+bus = &"Music"
 
 [node name="chords" type="AudioStreamPlayer" parent="."]
 pitch_scale = 0.01
+bus = &"Music"
 
 [node name="leads" type="AudioStreamPlayer" parent="."]
 pitch_scale = 0.01
+bus = &"Music"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

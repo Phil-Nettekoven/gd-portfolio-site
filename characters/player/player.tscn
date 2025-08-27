@@ -128,9 +128,6 @@ animation = &"idle_down"
 autoplay = "idle_down"
 metadata/_edit_lock_ = true
 
-[node name="jump_timer" type="Timer" parent="."]
-one_shot = true
-
 [node name="camera_pivot" type="Node3D" parent="."]
 script = ExtResource("3_exd8k")
 metadata/_edit_lock_ = true
@@ -144,5 +141,3 @@ metadata/_edit_lock_ = true
 unique_name_in_owner = true
 fov = 90.0
 metadata/_edit_lock_ = true
-
-[connection signal="timeout" from="jump_timer" to="." method="_on_timer_timeout"]
