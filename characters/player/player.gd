@@ -3,7 +3,8 @@ extends CharacterBody3D
 @onready var jump_timer:Timer = $jump_timer
 @onready var camera:Camera3D = %camera
 @onready var camera_pivot:Node3D = $camera_pivot
-@onready var sprite:AnimatedSprite3D = $AnimatedSprite3D
+@onready var sprite:AnimatedSprite3D = $sprite_pivot/AnimatedSprite3D
+@onready var sprite_pivot:Node3D = $sprite_pivot
 var rotation_velocity:Vector2 = Vector2.ZERO
 
 @onready var starting_pos:Vector3 = self.global_position
@@ -12,7 +13,6 @@ var prev_velocity:Vector3 = Vector3.ZERO
 enum STATE {pathing, free, disabled}
 var state:STATE = STATE.free
 
-@onready var animated_sprite:AnimatedSprite3D = $AnimatedSprite3D
 var player_direction:String = "down"
 var input_dir:Vector2 = Vector2.DOWN
 
@@ -94,7 +94,7 @@ func handle_animations()->void:
 	if idle:
 		animation_string = "idle_"
 	animation_string += movement_direction
-	animated_sprite.play(animation_string)
+	sprite.play(animation_string)
 
 func change_state(new_state_name:String)->void:
 	var new_state:STATE
@@ -121,8 +121,8 @@ func _process(delta: float) -> void:
 		rotate_sprite(delta)
 
 func rotate_sprite(_delta:float) ->void:
-	sprite.rotation.x = move_toward(sprite.rotation.x, rotation_velocity.x, _delta * 30)
-	sprite.rotation.y = move_toward(sprite.rotation.y, rotation_velocity.y, _delta * 30)
+	sprite_pivot.rotation.x = move_toward(sprite_pivot.rotation.x, rotation_velocity.x, _delta * 30)
+	sprite_pivot.rotation.y = move_toward(sprite_pivot.rotation.y, rotation_velocity.y, _delta * 30)
 
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("reset"):
@@ -131,24 +131,24 @@ func _input(_event: InputEvent) -> void:
 		get_tree().quit()
 
 func _on_camera_locked()->void:
-	sprite.rotation.x = 0
+	sprite_pivot.rotation_degrees.x = 180
+	sprite_pivot.rotation.y = camera_pivot.rotation.y
 	
-	rotation_velocity.x = sprite.rotation.x
-	rotation_velocity.y = sprite.rotation.y
+	rotation_velocity.x = sprite_pivot.rotation.x
+	rotation_velocity.y = sprite_pivot.rotation.y
 	
-	rotation_velocity = Vector2.ZERO
 	sprite.billboard = BaseMaterial3D.BILLBOARD_DISABLED
 
 func _on_camera_unlocked()->void:
 	sprite.billboard = BaseMaterial3D.BILLBOARD_FIXED_Y
-	sprite.rotation.x = 0
-	sprite.rotation.y = camera_pivot.rotation.y
+	sprite_pivot.rotation.x = 0
+	sprite_pivot.rotation.y = camera_pivot.rotation.y
 	
-	rotation_velocity.x = sprite.rotation.x
-	rotation_velocity.y = sprite.rotation.y
+	rotation_velocity.x = sprite_pivot.rotation.x
+	rotation_velocity.y = sprite_pivot.rotation.y
 	
 func _on_locked_camera_pivot(pivot_value:Vector2) ->void:
-	rotation_velocity -= pivot_value * 10
+	rotation_velocity.y -= pivot_value.length()
 	
 
 func reset()->void:
