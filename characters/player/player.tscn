@@ -145,3 +145,6 @@ metadata/_edit_lock_ = true
 unique_name_in_owner = true
 fov = 90.0
 metadata/_edit_lock_ = true
+
+[node name="spin_timer" type="Timer" parent="."]
+one_shot = true

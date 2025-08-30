@@ -17,6 +17,16 @@ const GRAVITY_MOD:float = 2.0
 
 const MUSIC_MAX_SPEED:float = MAX_SPEED/4 #The player's speed at which the BGM will play at pitch = 1.0
 
+const MAX_SPIN_TARGET_SPEED:float = 3000.0
+const SPIN_TRANSITION_THRESHOLD:float = MAX_SPIN_TARGET_SPEED*0.66
+const SPIN_BREAK_SPEED:float = 200
+const SPIN_MOUSE_INPUT_MULT:float = 40.0
+const SPIN_TIMER_DURATION:float = 3.0
+const SPIN_MOVESPEED:float = 250
+
+const SPRITE_NORMAL_OFFSET:Vector2 = Vector2(0,16)
+const SPRITE_SPIN_OFFSET:Vector2 = Vector2(0,13)
+
 var OS_TYPE:String = ""
 var is_mobile:bool = false
 
@@ -32,6 +42,10 @@ func _ready() -> void:
 	else:
 		OS_TYPE = "desktop"
 	print(OS_TYPE)
+
+func _input(_event: InputEvent) -> void:
+	if Input.is_action_just_pressed("quit") && OS.has_feature("editor"):
+		get_tree().quit()
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_APPLICATION_FOCUS_OUT:
