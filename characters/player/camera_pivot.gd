@@ -21,18 +21,15 @@ func _unhandled_input(event: InputEvent) -> void:
 	if Globals.OS_TYPE == "web_desktop" && (Input.mouse_mode != Input.MOUSE_MODE_CAPTURED):
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
-	if is_camera_locked:
-		locked_camera(event)
-	else:
-		free_camera(event)
+	free_camera(event)
 		
-func _input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("lock_camera"):
-		camera_locked.emit()
-		is_camera_locked = true
-	elif Input.is_action_just_released("lock_camera"):
-		camera_unlocked.emit()
-		is_camera_locked = false
+# func _input(_event: InputEvent) -> void:
+# 	if Input.is_action_just_pressed("lock_camera"):
+# 		camera_locked.emit()
+# 		is_camera_locked = true
+# 	elif Input.is_action_just_released("lock_camera"):
+# 		camera_unlocked.emit()
+# 		is_camera_locked = false
 
 func free_camera(event: InputEvent)->void:
 	rotation.x -= event.relative.y * mouse_sensitivity

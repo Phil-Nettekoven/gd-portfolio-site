@@ -18,11 +18,14 @@ const GRAVITY_MOD:float = 2.0
 const MUSIC_MAX_SPEED:float = MAX_SPEED/4 #The player's speed at which the BGM will play at pitch = 1.0
 
 const MAX_SPIN_TARGET_SPEED:float = 3000.0
+const MIN_SPIN_TARGET_SPEED:float = 600.0
+const SPIN_ACCELERATION:float = 2000.0
+
 const SPIN_TRANSITION_THRESHOLD:float = MAX_SPIN_TARGET_SPEED*0.66
 const SPIN_BREAK_SPEED:float = 200
 const SPIN_MOUSE_INPUT_MULT:float = 40.0
-const SPIN_TIMER_DURATION:float = 3.0
-const SPIN_MOVESPEED:float = 250
+const SPIN_TIMER_DURATION:float = 1.25
+const SPIN_MOVESPEED:float = 200
 
 const SPRITE_NORMAL_OFFSET:Vector2 = Vector2(0,16)
 const SPRITE_SPIN_OFFSET:Vector2 = Vector2(0,13)
