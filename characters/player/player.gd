@@ -8,10 +8,12 @@ extends CharacterBody3D
 @onready var sprite: AnimatedSprite3D = $sprite_pivot/AnimatedSprite3D
 @onready var sprite_pivot: Node3D = $sprite_pivot
 @onready var spin_timer:Timer = $spin_timer
-var rotation_speed: float = Globals.MIN_SPIN_TARGET_SPEED
+@onready var animation_player:AnimationPlayer = $AnimationPlayer
+@export var rotation_speed: float = Globals.MIN_SPIN_TARGET_SPEED
 var target_rotation_speed: float = Globals.MIN_SPIN_TARGET_SPEED
 var added_speed: bool = false
 var can_spin:bool = true
+var tween_started:bool = false
 
 @onready var starting_pos: Vector3 = self.global_position
 var prev_velocity: Vector3 = Vector3.ZERO
@@ -27,9 +29,10 @@ var touched_ground: bool = false
 #endregion
 
 func _ready() -> void:
-	camera_pivot.camera_locked.connect(enter_spin_state)
-	camera_pivot.camera_unlocked.connect(exit_spin_state)
+	# camera_pivot.camera_locked.connect(enter_spin_state)
+	# camera_pivot.camera_unlocked.connect(exit_spin_state)
 	#velocity.y = -20
+	pass
 
 #region Movement
 
@@ -122,15 +125,19 @@ func rotate_sprite(_delta: float) -> void:
 	elif can_spin && rotation_speed > Globals.MIN_SPIN_TARGET_SPEED:
 		rotation_speed = move_toward(rotation_speed, Globals.MIN_SPIN_TARGET_SPEED, _delta * Globals.SPIN_ACCELERATION)
 
+	if  rotation_speed <= Globals.MIN_SPIN_TARGET_SPEED && animation_player.is_playing():
+		return
 	
 	if state == STATE.free && rotation_speed <= Globals.MIN_SPIN_TARGET_SPEED:
-		sprite.billboard = BaseMaterial3D.BILLBOARD_FIXED_Y
+		reset_rotation()
+		#sprite.billboard = BaseMaterial3D.BILLBOARD_FIXED_Y
 		#sprite_pivot.rotation_degrees.x = 0
 		
-	elif state == STATE.free:
-		sprite.billboard = BaseMaterial3D.BILLBOARD_DISABLED
-		#sprite_pivot.rotation_degrees.x = 180
-		#sprite.offset = Globals.SPRITE_NORMAL_OFFSET
+	# elif state == STATE.free:
+	# 	animation_player.play("unflip_x")
+	# 	#sprite.billboard = BaseMaterial3D.BILLBOARD_DISABLED
+	# 	#sprite_pivot.rotation_degrees.x = 180
+	# 	#sprite.offset = Globals.SPRITE_NORMAL_OFFSET
 
 	sprite_pivot.rotation_degrees.y += rotation_speed * _delta
 	
@@ -166,24 +173,35 @@ func enter_spin_state() -> void:
 	else:
 		state = STATE.spin_startup
 	
+	sprite_pivot.rotation.y = camera_pivot.rotation.y
+	animation_player.play("flip_x")
+
 	sprite.offset = Globals.SPRITE_SPIN_OFFSET
-	sprite_pivot.rotation_degrees.x = 180
-	#sprite_pivot.rotation.y = camera_pivot.rotation.y
-	
-	sprite.billboard = BaseMaterial3D.BILLBOARD_DISABLED
-	#rotation_speed = Globals.MIN_SPIN_TARGET_SPEED
-	#target_rotation_speed = Globals.MIN_SPIN_TARGET_SPEED
 
 func exit_spin_state() -> void:
 	
 	sprite.offset = Globals.SPRITE_NORMAL_OFFSET
-	sprite_pivot.rotation.x = 0
-	# sprite_pivot.rotation.y = camera_pivot.rotation.y
 	
-	#target_rotation_speed = 200
 	state = STATE.free
+	animation_player.play("unflip_x")
 
-	sprite.billboard = BaseMaterial3D.BILLBOARD_FIXED_Y
+func reset_rotation() -> void:
+	if tween_started:
+		return
+	if sprite.billboard == BaseMaterial3D.BILLBOARD_FIXED_Y:
+		return
+
+	var tween_speed:float = .4
+	tween_started = true
+	var tween:Tween = get_tree().create_tween()
+	tween.finished.connect(_on_tween_finished)
+	tween.tween_property(sprite_pivot, "rotation:y", camera_pivot.rotation.y, tween_speed)
+	
+
+func _on_tween_finished()->void:
+	if !animation_player.is_playing():
+		sprite.billboard = BaseMaterial3D.BILLBOARD_FIXED_Y
+	tween_started = false
 
 #endregion
 
@@ -203,15 +221,16 @@ func handle_animations() -> void:
 	var idle: bool = false
 	var movement_direction: String = ""
 	var animation_string: String = ""
+	
+	if state == STATE.spin_startup:
+		animation_string = "idle_right"
+		sprite.play(animation_string)
+		return
+	if rotation_speed > Globals.MIN_SPIN_TARGET_SPEED:
+		animation_string = "right"
+		sprite.play(animation_string)
+		return
 
-	if state == STATE.spinning_locked:
-		animation_string = "idle_right"
-		sprite.play(animation_string)
-		return
-	elif state == STATE.spin_startup:
-		animation_string = "idle_right"
-		sprite.play(animation_string)
-		return
 
 	if velocity.x == 0.0 && velocity.z == 0.0:
 		idle = true
@@ -246,5 +265,3 @@ func _process(_delta: float) -> void:
 	charge_spin(_delta)
 	rotate_sprite(_delta)
 	handle_animations()
-
-	print(target_rotation_speed)

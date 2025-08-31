@@ -4,8 +4,8 @@ extends Node3D
 @export var tilt_limit:float = deg_to_rad(75)
 
 signal locked_camera_pivot(value:Vector2)
-signal camera_locked
-signal camera_unlocked
+# signal camera_locked
+# signal camera_unlocked
 
 var is_camera_locked:bool = false
 
