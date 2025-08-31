@@ -13,6 +13,8 @@ extends CharacterBody3D
 var target_rotation_speed: float = Globals.MIN_SPIN_TARGET_SPEED
 var added_speed: bool = false
 var can_spin:bool = true
+
+var tween:Tween = null
 var tween_started:bool = false
 
 @onready var starting_pos: Vector3 = self.global_position
@@ -29,10 +31,8 @@ var touched_ground: bool = false
 #endregion
 
 func _ready() -> void:
-	# camera_pivot.camera_locked.connect(enter_spin_state)
-	# camera_pivot.camera_unlocked.connect(exit_spin_state)
-	#velocity.y = -20
-	pass
+	
+	velocity.y = -20
 
 #region Movement
 
@@ -51,7 +51,6 @@ func free_movement(_delta: float) -> void:
 			touched_ground = true
 			just_touched_ground.emit()
 		else:
-			move_and_slide()
 			return
 	
 	input_dir = Input.get_vector("left", "right", "up", "down")
@@ -76,7 +75,6 @@ func free_movement(_delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, _delta * cur_deceleration)
 		velocity.z = move_toward(velocity.z, 0, _delta * cur_deceleration)
 	
-	move_and_slide()
 
 func spin_startup_movement(_delta: float) -> void:
 	var cur_deceleration:float = Globals.DECELERATION
@@ -86,43 +84,35 @@ func spin_startup_movement(_delta: float) -> void:
 
 	velocity.x = move_toward(velocity.x, 0, _delta * cur_deceleration)
 	velocity.z = move_toward(velocity.z, 0, _delta * cur_deceleration)
-	move_and_slide()
 
 func spin_movement(_delta:float)->void:
 	if not is_on_floor():
 		velocity += (get_gravity() * Globals.GRAVITY_MOD) * _delta
-		velocity.x = move_toward(velocity.x, 0, _delta * Globals.AIR_DECELERATION* 2)
-		velocity.z = move_toward(velocity.z, 0, _delta * Globals.AIR_DECELERATION * 2)
+		# velocity.x = move_toward(velocity.x, 0, _delta * Globals.AIR_DECELERATION* 2)
+		# velocity.z = move_toward(velocity.z, 0, _delta * Globals.AIR_DECELERATION * 2)
 		
-		move_and_slide()
-		return
+		# return
+	elif Input.is_action_pressed("jump"):
+		velocity.y = Globals.JUMP_VELOCITY
 
-	input_dir = Input.get_vector("left", "right", "up", "down")
+	input_dir = Vector2.UP
 	var direction: Vector3 = Vector3(input_dir.x, 0, input_dir.y).normalized()
 	direction = direction.rotated(Vector3.UP, camera.global_rotation.y)
 	
-	if is_on_floor() && Input.is_action_pressed("jump"):
-		velocity.y = Globals.JUMP_VELOCITY
+	direction *= Globals.SPIN_MOVESPEED
+	velocity.x = move_toward(velocity.x, direction.x, _delta * Globals.SPRINT_ACCELERATION)
+	velocity.z = move_toward(velocity.z, direction.z, _delta * Globals.SPRINT_ACCELERATION)
 	
-	if direction: # Moving
-		direction *= Globals.SPIN_MOVESPEED
-		velocity.x = move_toward(velocity.x, direction.x, _delta * Globals.SPRINT_ACCELERATION)
-		velocity.z = move_toward(velocity.z, direction.z, _delta * Globals.SPRINT_ACCELERATION)
-	else: # Decelerate if on floor
-		velocity.x = move_toward(velocity.x, 0, _delta * Globals.SPRINT_DECELERATION)
-		velocity.z = move_toward(velocity.z, 0, _delta * Globals.SPRINT_DECELERATION)
-	
-	move_and_slide()
 
 #endregion
 
-#region sprite_rotation
+#region spin_logic
 
 func rotate_sprite(_delta: float) -> void:
 	
 	if added_speed:
 		rotation_speed = move_toward(rotation_speed, target_rotation_speed, _delta * Globals.SPIN_ACCELERATION)
-	elif can_spin && rotation_speed > Globals.MIN_SPIN_TARGET_SPEED:
+	elif can_spin && rotation_speed > Globals.MIN_SPIN_TARGET_SPEED && !tween_started:
 		rotation_speed = move_toward(rotation_speed, Globals.MIN_SPIN_TARGET_SPEED, _delta * Globals.SPIN_ACCELERATION)
 
 	if  rotation_speed <= Globals.MIN_SPIN_TARGET_SPEED && animation_player.is_playing():
@@ -130,16 +120,10 @@ func rotate_sprite(_delta: float) -> void:
 	
 	if state == STATE.free && rotation_speed <= Globals.MIN_SPIN_TARGET_SPEED:
 		reset_rotation()
-		#sprite.billboard = BaseMaterial3D.BILLBOARD_FIXED_Y
-		#sprite_pivot.rotation_degrees.x = 0
-		
-	# elif state == STATE.free:
-	# 	animation_player.play("unflip_x")
-	# 	#sprite.billboard = BaseMaterial3D.BILLBOARD_DISABLED
-	# 	#sprite_pivot.rotation_degrees.x = 180
-	# 	#sprite.offset = Globals.SPRITE_NORMAL_OFFSET
 
-	sprite_pivot.rotation_degrees.y += rotation_speed * _delta
+	#sprite_pivot.rotation_degrees.y += rotation_speed * _delta
+	var new_rotation_y:float = sprite_pivot.rotation_degrees.y - (rotation_speed * _delta)
+	sprite_pivot.rotation_degrees.y = wrapf(new_rotation_y, 0.0, 360.0)
 	
 	if is_on_floor() && state == STATE.spin_startup && rotation_speed >= Globals.MAX_SPIN_TARGET_SPEED:
 		state = STATE.spinning_locked
@@ -155,7 +139,6 @@ func rotate_sprite(_delta: float) -> void:
 	added_speed = false
 
 func charge_spin(_delta:float) -> void:
-
 	if can_spin && Input.is_action_pressed("charge") && state == STATE.spin_startup:
 		target_rotation_speed = move_toward(target_rotation_speed, Globals.MAX_SPIN_TARGET_SPEED, Globals.SPIN_ACCELERATION * _delta)
 		added_speed = true
@@ -172,6 +155,10 @@ func enter_spin_state() -> void:
 		state = STATE.spinning_locked
 	else:
 		state = STATE.spin_startup
+
+	if tween:
+		tween.kill()
+		tween = null
 	
 	sprite_pivot.rotation.y = camera_pivot.rotation.y
 	animation_player.play("flip_x")
@@ -186,22 +173,26 @@ func exit_spin_state() -> void:
 	animation_player.play("unflip_x")
 
 func reset_rotation() -> void:
-	if tween_started:
+	if tween:
 		return
 	if sprite.billboard == BaseMaterial3D.BILLBOARD_FIXED_Y:
 		return
 
-	var tween_speed:float = .4
-	tween_started = true
-	var tween:Tween = get_tree().create_tween()
+	var tween_speed:float = 0.25
+	var y_target_degrees:float = camera_pivot.rotation_degrees.y
+
+	if y_target_degrees > sprite_pivot.rotation_degrees.y:
+		y_target_degrees -= 360
+
+	tween = get_tree().create_tween()
 	tween.finished.connect(_on_tween_finished)
-	tween.tween_property(sprite_pivot, "rotation:y", camera_pivot.rotation.y, tween_speed)
+	tween.tween_property(sprite_pivot, "rotation_degrees:y", y_target_degrees, tween_speed)
 	
 
 func _on_tween_finished()->void:
-	if !animation_player.is_playing():
+	if state == STATE.free && !animation_player.is_playing():
 		sprite.billboard = BaseMaterial3D.BILLBOARD_FIXED_Y
-	tween_started = false
+	tween = null
 
 #endregion
 
@@ -222,12 +213,13 @@ func handle_animations() -> void:
 	var movement_direction: String = ""
 	var animation_string: String = ""
 	
-	if state == STATE.spin_startup:
-		animation_string = "idle_right"
-		sprite.play(animation_string)
-		return
+
 	if rotation_speed > Globals.MIN_SPIN_TARGET_SPEED:
 		animation_string = "right"
+		sprite.play(animation_string)
+		return
+	elif state == STATE.spin_startup:
+		animation_string = "idle_right"
 		sprite.play(animation_string)
 		return
 
@@ -265,3 +257,4 @@ func _process(_delta: float) -> void:
 	charge_spin(_delta)
 	rotate_sprite(_delta)
 	handle_animations()
+	move_and_slide()

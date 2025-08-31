@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://drpdkmy2ta31k"]
+[gd_scene load_steps=18 format=3 uid="uid://drpdkmy2ta31k"]
 
 [ext_resource type="Script" uid="uid://qd54rs2lhm00" path="res://characters/player/player.gd" id="1_xxgcw"]
 [ext_resource type="Texture2D" uid="uid://f547568wka2q" path="res://characters/player/pothead.png" id="2_xxgcw"]
@@ -105,6 +105,34 @@ animations = [{
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b886q"]
 
+[sub_resource type="Animation" id="Animation_ixbpm"]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_pivot/AnimatedSprite3D:billboard")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite_pivot:rotation:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
 [sub_resource type="Animation" id="Animation_exd8k"]
 resource_name = "flip_x"
 tracks/0/type = "value"
@@ -161,6 +189,7 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5dc8e"]
 _data = {
+&"RESET": SubResource("Animation_ixbpm"),
 &"flip_x": SubResource("Animation_exd8k"),
 &"unflip_x": SubResource("Animation_5dc8e")
 }
@@ -174,12 +203,13 @@ script = ExtResource("1_xxgcw")
 metadata/_edit_lock_ = true
 
 [node name="sprite_pivot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.99999994, 0.00040730633, 0, -0.00040730633, -0.99999994, 0, 1.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 metadata/_edit_lock_ = true
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="sprite_pivot"]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, -1.25, 0)
 offset = Vector2(0, 16)
+billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_5dc8e")
 animation = &"idle_down"
@@ -213,4 +243,5 @@ one_shot = true
 libraries = {
 &"": SubResource("AnimationLibrary_5dc8e")
 }
+autoplay = "RESET"
 speed_scale = 10.0

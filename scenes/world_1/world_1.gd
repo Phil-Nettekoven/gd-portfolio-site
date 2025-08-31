@@ -16,7 +16,7 @@ func init_world()->void:
 
 func spawn_tile(coords:Vector2i)->void:
 	if world_tiles.has(coords):
-		print("already generated ",coords)
+		Globals.gprint("already generated "+str(coords))
 		return
 	
 	var new_tile:Node3D = tile_scene.instantiate()

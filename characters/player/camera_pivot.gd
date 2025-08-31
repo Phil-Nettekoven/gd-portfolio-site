@@ -14,7 +14,7 @@ func _ready() -> void:
 	pass
 	
 func _unhandled_input(event: InputEvent) -> void:
-	#print(event is InputEventScreenTouch || event is InputEventScreenDrag)
+	#Globals.gprint(event is InputEventScreenTouch || event is InputEventScreenDrag)
 	if event is not InputEventMouseMotion: 
 		return
 	
@@ -22,6 +22,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 	free_camera(event)
+	#rotation_degrees.x = fposmod(rotation_degrees.x, 1080)
+	rotation_degrees.y =  fposmod(rotation_degrees.y, 360)
 		
 # func _input(_event: InputEvent) -> void:
 # 	if Input.is_action_just_pressed("lock_camera"):
@@ -36,10 +38,9 @@ func free_camera(event: InputEvent)->void:
 	rotation.x = clampf(rotation.x, -tilt_limit, tilt_limit)
 	rotation.y += -event.relative.x * mouse_sensitivity
 
-func locked_camera(event: InputEvent)->void:
-	var camera_pivot:Vector2 = Vector2.ZERO
+# func locked_camera(event: InputEvent)->void:
+# 	var camera_pivot:Vector2 = Vector2.ZERO
 	
-	camera_pivot.x = event.relative.y * mouse_sensitivity
-	camera_pivot.y = -event.relative.x * mouse_sensitivity
+# 	camera_pivot.x = event.relative.y * mouse_sensitivity
+# 	camera_pivot.y = -event.relative.x * mouse_sensitivity
 	
-	locked_camera_pivot.emit(camera_pivot)

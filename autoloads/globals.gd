@@ -4,7 +4,7 @@ const MAX_SPEED:float  = 100
 const SPRINT_MAX_SPEED:float = MAX_SPEED*2
 const SPRINT_MOD:float = 2.0
 const ACCELERATION:float = 50
-const SPRINT_ACCELERATION:float = ACCELERATION*1.25
+const SPRINT_ACCELERATION:float = ACCELERATION*3
 
 const DECELERATION:float = 100
 const SPRINT_DECELERATION:float = DECELERATION*0.5
@@ -44,7 +44,12 @@ func _ready() -> void:
 		OS_TYPE = "web_desktop"
 	else:
 		OS_TYPE = "desktop"
-	print(OS_TYPE)
+	gprint(OS_TYPE)
+
+func gprint(text: String) -> void:
+	var unix_time_float: float = (Time.get_unix_time_from_system())
+	var unix_time_string: String = Time.get_time_string_from_unix_time(int(unix_time_float))
+	print(unix_time_string + " " + text)
 
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("quit") && OS.has_feature("editor"):

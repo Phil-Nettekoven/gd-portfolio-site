@@ -24,7 +24,7 @@ var prev_speed:float = 0.0
 
 func _ready() -> void:
 	if !drum_audio:
-		print("No audio file for BGM provided.")
+		Globals.gprint("No audio file for BGM provided.")
 		return
 	drum_audio.loop = true
 	drums.stream = drum_audio
