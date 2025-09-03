@@ -61,6 +61,7 @@ func gprint(text: Variant) -> void:
 
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("quit") && OS.has_feature("editor"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		get_tree().quit()
 
 func _notification(what: int) -> void:
