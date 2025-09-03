@@ -49,24 +49,18 @@ func free_movement(_delta: float) -> void:
 	if touched_ground == false: # Emit the first time player touches the ground
 		if is_on_floor():
 			touched_ground = true
-			just_touched_ground.emit()
+			#just_touched_ground.emit()
 		else:
 			return
 	
 	input_dir = Input.get_vector("left", "right", "up", "down")
 	var direction: Vector3 = Vector3(input_dir.x, 0, input_dir.y).normalized()
 	direction = direction.rotated(Vector3.UP, camera.global_rotation.y)
-
-	# if is_on_floor():
-	# 	if Globals.is_mobile || Input.is_action_pressed("sprint"):
-	# 		target_movespeed = Globals.SPRINT_MAX_SPEED
-	# 		cur_jump_velocity *= Globals.JUMP_MOD
-	# 		cur_acceleration = Globals.SPRINT_ACCELERATION
-	# 		cur_deceleration = Globals.SPRINT_DECELERATION
 	
 	if is_on_floor() && Input.is_action_pressed("jump"):
 		velocity.y = cur_jump_velocity
 	
+	#print(direction)
 	if direction: # Moving
 		direction *= target_movespeed
 		velocity.x = move_toward(velocity.x, direction.x, _delta * cur_acceleration)
@@ -74,6 +68,8 @@ func free_movement(_delta: float) -> void:
 	else: # Decelerate if on floor
 		velocity.x = move_toward(velocity.x, 0, _delta * cur_deceleration)
 		velocity.z = move_toward(velocity.z, 0, _delta * cur_deceleration)
+		# velocity.x = 0
+		# velocity.z = 0
 	
 
 func spin_startup_movement(_delta: float) -> void:
@@ -90,8 +86,6 @@ func spin_movement(_delta:float)->void:
 		velocity += (get_gravity() * Globals.GRAVITY_MOD) * _delta
 		# velocity.x = move_toward(velocity.x, 0, _delta * Globals.AIR_DECELERATION* 2)
 		# velocity.z = move_toward(velocity.z, 0, _delta * Globals.AIR_DECELERATION * 2)
-		
-		# return
 	elif Input.is_action_pressed("jump"):
 		velocity.y = Globals.JUMP_VELOCITY
 

@@ -1,9 +1,9 @@
 extends Node
 
-const MAX_SPEED:float  = 100
+const MAX_SPEED:float  = 25
 const SPRINT_MAX_SPEED:float = MAX_SPEED*2
 const SPRINT_MOD:float = 2.0
-const ACCELERATION:float = 50
+const ACCELERATION:float = 100
 const SPRINT_ACCELERATION:float = ACCELERATION*3
 
 const DECELERATION:float = 100
@@ -46,10 +46,18 @@ func _ready() -> void:
 		OS_TYPE = "desktop"
 	gprint(OS_TYPE)
 
-func gprint(text: String) -> void:
+func gprint(text: Variant) -> void:
+	var casted_text:String = str(text)
+
+	if !casted_text:
+		casted_text = "!!INVALID CAST!!"
+
+	var timezone_data:Dictionary = Time.get_time_zone_from_system()
+
 	var unix_time_float: float = (Time.get_unix_time_from_system())
+	unix_time_float += (timezone_data["bias"] * 60)
 	var unix_time_string: String = Time.get_time_string_from_unix_time(int(unix_time_float))
-	print(unix_time_string + " " + text)
+	print(unix_time_string + " " + casted_text)
 
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("quit") && OS.has_feature("editor"):

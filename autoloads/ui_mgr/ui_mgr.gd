@@ -11,7 +11,8 @@ func _ready() -> void:
 		init_desktop_ui()
 
 func init_desktop_ui()->void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	pass
+	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func init_mobile_controls()->void:
 	mobile_controls.show()
