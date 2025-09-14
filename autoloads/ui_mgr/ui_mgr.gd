@@ -10,7 +10,7 @@ func _ready() -> void:
 	else:
 		init_desktop_ui()
 
-func init_desktop_ui()->void:
+func init_desktop_ui()->void:	
 	pass
 	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
