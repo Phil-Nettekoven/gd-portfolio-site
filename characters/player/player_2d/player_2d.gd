@@ -23,6 +23,7 @@ func movement(_delta:float)->void:
 		velocity.y = JUMP_VELOCITY
 
 	if input_dir.x: # Moving
+		player_moved.emit()
 		velocity.x = input_dir.x * MOVESPEED
 	elif is_on_floor(): # Decelerate if on floor
 		velocity.x = 0

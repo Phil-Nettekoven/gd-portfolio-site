@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dcjtgrho5t07p"
-path.s3tc="res://.godot/imported/fg_2.png-cc3a3cdea6964d678d7f1d39c3377568.s3tc.ctex"
-path.etc2="res://.godot/imported/fg_2.png-cc3a3cdea6964d678d7f1d39c3377568.etc2.ctex"
+uid="uid://bxg1famb1gmox"
+path.s3tc="res://.godot/imported/bg_1.png-5666031b302efbeae29229fc1c90610c.s3tc.ctex"
+path.etc2="res://.godot/imported/bg_1.png-5666031b302efbeae29229fc1c90610c.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://scenes/landing_page/landing_page_1/fg_2.png"
-dest_files=["res://.godot/imported/fg_2.png-cc3a3cdea6964d678d7f1d39c3377568.s3tc.ctex", "res://.godot/imported/fg_2.png-cc3a3cdea6964d678d7f1d39c3377568.etc2.ctex"]
+source_file="res://scenes/landing_page/act_1_1/bg_1.png"
+dest_files=["res://.godot/imported/bg_1.png-5666031b302efbeae29229fc1c90610c.s3tc.ctex", "res://.godot/imported/bg_1.png-5666031b302efbeae29229fc1c90610c.etc2.ctex"]
 
 [params]
 

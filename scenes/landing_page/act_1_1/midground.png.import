@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://x40cf5cc63m1"
-path.s3tc="res://.godot/imported/bg_2.png-d34dc2d475d4d9590c576007e7364875.s3tc.ctex"
-path.etc2="res://.godot/imported/bg_2.png-d34dc2d475d4d9590c576007e7364875.etc2.ctex"
+uid="uid://du3bquff4hyyx"
+path.s3tc="res://.godot/imported/midground.png-a37b6111a05b72227793e3fdf0d22dab.s3tc.ctex"
+path.etc2="res://.godot/imported/midground.png-a37b6111a05b72227793e3fdf0d22dab.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://scenes/landing_page/landing_page_1/bg_2.png"
-dest_files=["res://.godot/imported/bg_2.png-d34dc2d475d4d9590c576007e7364875.s3tc.ctex", "res://.godot/imported/bg_2.png-d34dc2d475d4d9590c576007e7364875.etc2.ctex"]
+source_file="res://scenes/landing_page/act_1_1/midground.png"
+dest_files=["res://.godot/imported/midground.png-a37b6111a05b72227793e3fdf0d22dab.s3tc.ctex", "res://.godot/imported/midground.png-a37b6111a05b72227793e3fdf0d22dab.etc2.ctex"]
 
 [params]
 

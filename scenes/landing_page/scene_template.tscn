@@ -1,0 +1,481 @@
+[gd_scene load_steps=11 format=3 uid="uid://cjsos4c7ic0r2"]
+
+[ext_resource type="Script" uid="uid://dgl3uwbx6tj8d" path="res://scenes/landing_page/camera.gd" id="1_agatb"]
+[ext_resource type="Texture2D" uid="uid://du3bquff4hyyx" path="res://scenes/landing_page/act_1_1/midground.png" id="2_vmsmw"]
+[ext_resource type="PackedScene" uid="uid://b3o16dal6udsj" path="res://objects/dead_tree/dead_tree.tscn" id="3_gmhb7"]
+[ext_resource type="PackedScene" uid="uid://d2yq6cvt2cxet" path="res://characters/player/player_2d/player_2d.tscn" id="4_ufu10"]
+[ext_resource type="Texture2D" uid="uid://dkhgy077gee1f" path="res://art/textures/moon.png" id="5_5rk3c"]
+[ext_resource type="Script" uid="uid://cbodsicqaj1v7" path="res://scenes/landing_page/moving_bg.gd" id="6_xcaan"]
+[ext_resource type="Texture2D" uid="uid://cbapithdedpyx" path="res://art/textures/hill.png" id="7_p3t6r"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_j3mdd"]
+
+[sub_resource type="Gradient" id="Gradient_j3mdd"]
+offsets = PackedFloat32Array(0.004158004, 1)
+colors = PackedColorArray(0.4246582, 0.30042002, 0.29174772, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_icthe"]
+gradient = SubResource("Gradient_j3mdd")
+width = 2048
+height = 2048
+fill_from = Vector2(1, 0)
+fill_to = Vector2(0, 0.7948718)
+
+[node name="scene_template" type="Node3D"]
+metadata/_edit_lock_ = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 1.972)
+fov = 50.0
+script = ExtResource("1_agatb")
+metadata/_edit_lock_ = true
+
+[node name="layers" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
+metadata/_edit_lock_ = true
+
+[node name="midground" type="Sprite3D" parent="layers"]
+texture_filter = 0
+texture = ExtResource("2_vmsmw")
+metadata/_edit_lock_ = true
+
+[node name="ground" type="StaticBody3D" parent="layers"]
+metadata/_edit_lock_ = true
+
+[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="layers/ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+polygon = PackedVector2Array(30, 0, -30, 0, -30, -1, 30, -1)
+metadata/_edit_lock_ = true
+
+[node name="left_bound" type="StaticBody3D" parent="layers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.227619, 0, 0)
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="layers/left_bound"]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_j3mdd")
+metadata/_edit_lock_ = true
+
+[node name="right_bound" type="StaticBody3D" parent="layers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3821254, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="layers/right_bound"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_j3mdd")
+metadata/_edit_lock_ = true
+
+[node name="objects" type="Node3D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="background" type="Node3D" parent="objects"]
+metadata/_edit_lock_ = true
+
+[node name="dead_tree9" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.294, -0.13320771, -0.507)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree4" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.41, -0.04907988, -0.094)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree11" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.69336706, -0.04222089, -0.20343822)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree16" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9758795, -0.13304442, -0.32654035)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree17" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1221633, -0.06883469, -0.14967078)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree15" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.93418753, -0.08739546, -0.42634356)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree7" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.5919719, -0.062820315, -0.093759894)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree8" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.05346805, -0.119287595, -0.2601682)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree12" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5331962, -0.06043212, -0.2601682)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree13" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3222313, -0.14228411, -0.5369438)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree14" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.255871, -0.106874004, -0.53688943)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree10" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9831879, -0.27549183, -0.6903182)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree5" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.8241363, -0.19136399, -0.27731812)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree18" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9705548, -0.184505, -0.38675636)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree20" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3993511, -0.2111188, -0.33298892)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree21" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.599573, -0.22967957, -0.6096617)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree22" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.9370809, -0.20510443, -0.27707803)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree23" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.2237198, -0.2615717, -0.44348633)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree24" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.001089, -0.20271623, -0.44348633)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree25" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7363677, -0.28456822, -0.72026193)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree26" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.533059, -0.24915811, -0.7202076)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree19" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6655383, -0.13320771, -0.507)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree6" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.3695383, -0.04907988, -0.094)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree27" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.6529055, -0.04222089, -0.20343822)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree29" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.0817018, -0.06883469, -0.14967078)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree30" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.893726, -0.08739546, -0.42634356)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree31" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4.4756575, -0.062820315, -0.093759894)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree32" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4.90607, -0.119287595, -0.2601682)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree33" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.4927344, -0.06043212, -0.2601682)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree34" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2817698, -0.14228411, -0.5369438)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree35" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.2154098, -0.106874004, -0.53688943)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree36" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.9427266, -0.27549183, -0.6903182)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree37" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 7.7836747, -0.19136399, -0.27731812)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree38" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.9300933, -0.184505, -0.38675636)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree39" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.358889, -0.2111188, -0.33298892)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree40" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 7.559111, -0.22967957, -0.6096617)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree41" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 6.8966193, -0.20510443, -0.27707803)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree42" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 7.1832585, -0.2615717, -0.44348633)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree43" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.960627, -0.20271623, -0.44348633)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree44" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.695906, -0.28456822, -0.72026193)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="dead_tree45" parent="objects/background" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.492598, -0.24915811, -0.7202076)
+render_priority = -5
+metadata/_edit_lock_ = true
+
+[node name="foreground" type="Node3D" parent="objects"]
+metadata/_edit_lock_ = true
+
+[node name="dead_tree1" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 1.178)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree4" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.439, 0.2, 1.08)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree2" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.789, 0.2, 1.178)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree11" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4934511, 0.2, 1.1378888)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree3" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.234, 0.12878753, 0.881)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree10" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.272, 0.1766515, 0.981)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree5" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.191, 0.12247287, 0.893)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree6" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.633, 0.065663695, 0.754)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree7" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.487, 0.07091114, 0.754)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree8" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.10814357, -0.01916483, 0.6656253)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree9" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.0749582, 0.015434355, 0.6299253)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree12" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2735448, 0.2, 1.178)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree13" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8345448, 0.2, 1.08)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree14" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0625448, 0.2, 1.178)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree15" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.766996, 0.2, 1.1378888)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree16" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5075448, 0.12878753, 0.881)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree17" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.5455449, 0.1766515, 0.981)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree18" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0825448, 0.12247287, 0.893)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree19" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9065447, 0.065663695, 0.754)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree20" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.7865448, 0.07091114, 0.754)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree21" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.3816884, -0.01916483, 0.6656253)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree22" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 3.348503, 0.015434355, 0.6299253)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree23" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9595385, 0.2, 1.178)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree24" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.292632, 0.2, 1.08)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree25" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.7485385, 0.2, 1.178)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree26" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.4529896, 0.2, 1.1378888)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree27" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.193538, 0.12878753, 0.881)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree28" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.2315383, 0.1766515, 0.981)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree29" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7685385, 0.12247287, 0.893)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree30" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5925384, 0.065663695, 0.754)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree31" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4.2166123, 0.07091114, 0.754)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree32" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.067682, -0.01916483, 0.6656253)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree33" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 6.034497, 0.015434355, 0.6299253)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree34" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2330832, 0.2, 1.178)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree35" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.794083, 0.2, 1.08)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree36" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.022083, 0.2, 1.178)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree37" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.726534, 0.2, 1.1378888)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree38" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.467083, 0.12878753, 0.881)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree39" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 7.5050836, 0.1766515, 0.981)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree40" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.0420833, 0.12247287, 0.893)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree41" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.866083, 0.065663695, 0.754)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree42" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 6.7460833, 0.07091114, 0.754)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree43" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 7.341227, -0.01916483, 0.6656253)
+metadata/_edit_lock_ = true
+
+[node name="dead_tree44" parent="objects/foreground" instance=ExtResource("3_gmhb7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 8.308041, 0.015434355, 0.6299253)
+metadata/_edit_lock_ = true
+
+[node name="player" parent="." instance=ExtResource("4_ufu10")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.2, 0)
+
+[node name="moon" type="Sprite3D" parent="."]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 5.1340446, 4.9316273, -7.7479525)
+modulate = Color(0.99999994, 0.640231, 0.36773315, 1)
+render_priority = -10
+texture = ExtResource("5_5rk3c")
+metadata/_edit_lock_ = true
+
+[node name="moving_bg" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 4.2732944, -10)
+render_priority = -128
+texture = SubResource("GradientTexture2D_icthe")
+script = ExtResource("6_xcaan")
+metadata/_edit_lock_ = true
+
+[node name="hill" type="Sprite3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, -1.5530043, -10.250919)
+modulate = Color(0.28118682, 0.28118688, 0.28118682, 1)
+texture_filter = 0
+render_priority = -15
+texture = ExtResource("7_p3t6r")
+metadata/_edit_lock_ = true
