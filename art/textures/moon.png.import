@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c25uexyrith3i"
-path.s3tc="res://.godot/imported/Stone.png-e26c21c0eb1e74450b580b3ffcd964a1.s3tc.ctex"
-path.etc2="res://.godot/imported/Stone.png-e26c21c0eb1e74450b580b3ffcd964a1.etc2.ctex"
+uid="uid://dkhgy077gee1f"
+path.s3tc="res://.godot/imported/moon.png-823731c7c531fe2922032692f1afa6d5.s3tc.ctex"
+path.etc2="res://.godot/imported/moon.png-823731c7c531fe2922032692f1afa6d5.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://art/textures/Stone.png"
-dest_files=["res://.godot/imported/Stone.png-e26c21c0eb1e74450b580b3ffcd964a1.s3tc.ctex", "res://.godot/imported/Stone.png-e26c21c0eb1e74450b580b3ffcd964a1.etc2.ctex"]
+source_file="res://art/textures/moon.png"
+dest_files=["res://.godot/imported/moon.png-823731c7c531fe2922032692f1afa6d5.s3tc.ctex", "res://.godot/imported/moon.png-823731c7c531fe2922032692f1afa6d5.etc2.ctex"]
 
 [params]
 

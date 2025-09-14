@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c25uexyrith3i"
-path.s3tc="res://.godot/imported/Stone.png-e26c21c0eb1e74450b580b3ffcd964a1.s3tc.ctex"
-path.etc2="res://.godot/imported/Stone.png-e26c21c0eb1e74450b580b3ffcd964a1.etc2.ctex"
+uid="uid://cbapithdedpyx"
+path.s3tc="res://.godot/imported/hill.png-7a761cb8b787521f82a2fdbfc1b2ac9d.s3tc.ctex"
+path.etc2="res://.godot/imported/hill.png-7a761cb8b787521f82a2fdbfc1b2ac9d.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://art/textures/Stone.png"
-dest_files=["res://.godot/imported/Stone.png-e26c21c0eb1e74450b580b3ffcd964a1.s3tc.ctex", "res://.godot/imported/Stone.png-e26c21c0eb1e74450b580b3ffcd964a1.etc2.ctex"]
+source_file="res://art/textures/hill.png"
+dest_files=["res://.godot/imported/hill.png-7a761cb8b787521f82a2fdbfc1b2ac9d.s3tc.ctex", "res://.godot/imported/hill.png-7a761cb8b787521f82a2fdbfc1b2ac9d.etc2.ctex"]
 
 [params]
 

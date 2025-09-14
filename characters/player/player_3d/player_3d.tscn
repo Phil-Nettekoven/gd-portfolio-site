@@ -1,8 +1,8 @@
 [gd_scene load_steps=18 format=3 uid="uid://drpdkmy2ta31k"]
 
-[ext_resource type="Script" uid="uid://qd54rs2lhm00" path="res://characters/player/player.gd" id="1_xxgcw"]
-[ext_resource type="Texture2D" uid="uid://f547568wka2q" path="res://characters/player/pothead.png" id="2_xxgcw"]
-[ext_resource type="Script" uid="uid://ybfcsej5wgx3" path="res://characters/player/camera_pivot.gd" id="3_exd8k"]
+[ext_resource type="Script" uid="uid://qd54rs2lhm00" path="res://characters/player/player_3d/player_3d.gd" id="1_xxgcw"]
+[ext_resource type="Texture2D" uid="uid://f547568wka2q" path="res://characters/player/player_3d/pothead.png" id="2_xxgcw"]
+[ext_resource type="Script" uid="uid://ybfcsej5wgx3" path="res://characters/player/player_3d/camera_pivot.gd" id="3_exd8k"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_idpv6"]
 atlas = ExtResource("2_xxgcw")
