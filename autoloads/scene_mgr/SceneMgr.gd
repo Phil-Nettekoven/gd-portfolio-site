@@ -20,7 +20,10 @@ func change_scene(scene_name:String) -> bool:
 	var scene_location:String = scene_list[scene_name]
 	var result:Error = get_tree().change_scene_to_file(scene_location)
 
-	return result == OK
+	if result == OK:
+		cur_scene = scene_name
+
+	return result
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

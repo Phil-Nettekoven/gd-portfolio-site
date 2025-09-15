@@ -38,14 +38,6 @@ texture_filter = 0
 texture = ExtResource("2_vmsmw")
 metadata/_edit_lock_ = true
 
-[node name="ground" type="StaticBody3D" parent="layers"]
-metadata/_edit_lock_ = true
-
-[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="layers/ground"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
-polygon = PackedVector2Array(30, 0, -30, 0, -30, -1, 30, -1)
-metadata/_edit_lock_ = true
-
 [node name="left_bound" type="StaticBody3D" parent="layers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.227619, 0, 0)
 metadata/_edit_lock_ = true
@@ -53,6 +45,7 @@ metadata/_edit_lock_ = true
 [node name="CollisionShape3D" type="CollisionShape3D" parent="layers/left_bound"]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("WorldBoundaryShape3D_j3mdd")
+debug_color = Color(0, 0.6, 0.7, 0.42)
 metadata/_edit_lock_ = true
 
 [node name="right_bound" type="StaticBody3D" parent="layers"]
@@ -61,7 +54,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3821254, 0, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="layers/right_bound"]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("WorldBoundaryShape3D_j3mdd")
+debug_color = Color(0, 0.6, 0.7, 0.42)
 metadata/_edit_lock_ = true
+
+[node name="collision" type="Node3D" parent="."]
 
 [node name="objects" type="Node3D" parent="."]
 metadata/_edit_lock_ = true
@@ -86,7 +82,7 @@ texture = ExtResource("5_5rk3c")
 metadata/_edit_lock_ = true
 
 [node name="moving_bg" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 4.2732944, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 4.273, -7.83)
 render_priority = -128
 texture = SubResource("GradientTexture2D_icthe")
 script = ExtResource("6_xcaan")

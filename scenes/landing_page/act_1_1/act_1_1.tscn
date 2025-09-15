@@ -1,10 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://6qnuppdxmuuu"]
+[gd_scene load_steps=5 format=3 uid="uid://6qnuppdxmuuu"]
 
 [ext_resource type="PackedScene" uid="uid://cjsos4c7ic0r2" path="res://scenes/landing_page/scene_template.tscn" id="1_ic4xy"]
 [ext_resource type="PackedScene" uid="uid://b3o16dal6udsj" path="res://objects/dead_tree/dead_tree.tscn" id="2_o8lng"]
 [ext_resource type="PackedScene" uid="uid://b086yoy8t0qbt" path="res://scenes/landing_page/transition_area.tscn" id="3_o8lng"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_o8lng"]
+size = Vector3(41, 1, 1)
+
 [node name="act_1_1" instance=ExtResource("1_ic4xy")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="collision" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="collision/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_o8lng")
+metadata/_edit_lock_ = true
 
 [node name="dead_tree9" parent="objects/background" index="0" instance=ExtResource("2_o8lng")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.294, -0.13320771, -0.507)
@@ -390,3 +401,6 @@ metadata/_edit_lock_ = true
 [node name="to_act_1_2" parent="transitions" index="0" instance=ExtResource("3_o8lng")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.968618, 0.42736477, 0)
 scene_name = "act_1_2"
+
+[node name="player" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.353, 0, 0)

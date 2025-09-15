@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://bxiilqs1jcw6v"]
+
+[ext_resource type="Texture2D" uid="uid://bsr6mbxljqdd" path="res://objects/mausoleum/mausoleum_door.png" id="1_x2o3f"]
+[ext_resource type="Texture2D" uid="uid://26qi7aldecny" path="res://objects/mausoleum/mausoleum.png" id="2_ijyxw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y51as"]
+atlas = ExtResource("1_x2o3f")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_me7vl"]
+atlas = ExtResource("1_x2o3f")
+region = Rect2(32, 0, 32, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l4gvp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y51as")
+}],
+"loop": true,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_me7vl")
+}],
+"loop": true,
+"name": &"open",
+"speed": 5.0
+}]
+
+[node name="mausoleum" type="Node3D"]
+metadata/_edit_lock_ = true
+
+[node name="door" type="AnimatedSprite3D" parent="."]
+offset = Vector2(0, 24)
+texture_filter = 0
+render_priority = -5
+sprite_frames = SubResource("SpriteFrames_l4gvp")
+animation = &"open"
+metadata/_edit_lock_ = true
+
+[node name="structure" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.012, -0.051)
+offset = Vector2(0, 80)
+texture_filter = 0
+render_priority = -6
+texture = ExtResource("2_ijyxw")
+metadata/_edit_lock_ = true
