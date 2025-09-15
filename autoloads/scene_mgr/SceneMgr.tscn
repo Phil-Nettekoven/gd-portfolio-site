@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cb5npv1ueux3p"]
+
+[ext_resource type="Script" uid="uid://c0x6egvk4m28e" path="res://autoloads/scene_mgr/SceneMgr.gd" id="1_2i0bf"]
+
+[node name="SceneMgr" type="CanvasLayer"]
+script = ExtResource("1_2i0bf")
+scene_list = Dictionary[String, String]({
+"act_1_1": "res://scenes/landing_page/act_1_1/act_1_1.tscn",
+"act_1_2": "res://scenes/landing_page/act_1_2/act_1_2.tscn"
+})
