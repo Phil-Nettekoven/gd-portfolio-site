@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bxiilqs1jcw6v"]
+[gd_scene load_steps=8 format=3 uid="uid://bxiilqs1jcw6v"]
 
+[ext_resource type="Script" uid="uid://1j7nn7sk7bfk" path="res://objects/mausoleum/mausoleum.gd" id="1_hfucb"]
 [ext_resource type="Texture2D" uid="uid://bsr6mbxljqdd" path="res://objects/mausoleum/mausoleum_door.png" id="1_x2o3f"]
 [ext_resource type="Texture2D" uid="uid://26qi7aldecny" path="res://objects/mausoleum/mausoleum.png" id="2_ijyxw"]
+[ext_resource type="PackedScene" uid="uid://1y5hl5je58r7" path="res://scenes/landing_page/transition_entrance.tscn" id="3_nvtjh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y51as"]
 atlas = ExtResource("1_x2o3f")
@@ -26,11 +28,12 @@ animations = [{
 "texture": SubResource("AtlasTexture_me7vl")
 }],
 "loop": true,
-"name": &"open",
+"name": &"opened",
 "speed": 5.0
 }]
 
 [node name="mausoleum" type="Node3D"]
+script = ExtResource("1_hfucb")
 metadata/_edit_lock_ = true
 
 [node name="door" type="AnimatedSprite3D" parent="."]
@@ -38,7 +41,8 @@ offset = Vector2(0, 24)
 texture_filter = 0
 render_priority = -5
 sprite_frames = SubResource("SpriteFrames_l4gvp")
-animation = &"open"
+animation = &"opened"
+autoplay = "closed"
 metadata/_edit_lock_ = true
 
 [node name="structure" type="Sprite3D" parent="."]
@@ -47,4 +51,9 @@ offset = Vector2(0, 80)
 texture_filter = 0
 render_priority = -6
 texture = ExtResource("2_ijyxw")
+metadata/_edit_lock_ = true
+
+[node name="transition_entrance" parent="." instance=ExtResource("3_nvtjh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15945259, 0)
+scene_name = "act_1_1"
 metadata/_edit_lock_ = true

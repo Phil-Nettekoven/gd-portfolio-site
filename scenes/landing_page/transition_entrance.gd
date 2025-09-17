@@ -3,6 +3,9 @@ extends Area3D
 @export var scene_name:String = ""
 var player_inside:bool = false
 
+signal player_entered_body
+signal player_left_body
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	assert(scene_name, "Transition %s has no scene associated with it!" %name)
@@ -21,9 +24,11 @@ func _on_body_entered(body: Node3D) -> void:
 		return
 	
 	player_inside = true
+	player_entered_body.emit()
 
 func _on_body_exited(body: Node3D) -> void:
 	if body.name != "player":
 		return
 	
 	player_inside = false
+	player_left_body.emit()

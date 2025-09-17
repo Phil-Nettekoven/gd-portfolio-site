@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://y6na1ye003lq"]
+[gd_scene load_steps=10 format=3 uid="uid://y6na1ye003lq"]
 
 [ext_resource type="PackedScene" uid="uid://cjsos4c7ic0r2" path="res://scenes/landing_page/scene_template.tscn" id="1_erjod"]
 [ext_resource type="Texture2D" uid="uid://xt1lbjyih3vh" path="res://scenes/landing_page/act_1_2/act_1_2.png" id="2_dkjna"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://bxiilqs1jcw6v" path="res://objects/mausoleum/mausoleum.tscn" id="4_oywg8"]
 [ext_resource type="PackedScene" uid="uid://b086yoy8t0qbt" path="res://scenes/landing_page/transition_area.tscn" id="4_sww8o"]
 [ext_resource type="PackedScene" uid="uid://duencpjc0u42c" path="res://objects/column/column.tscn" id="5_myi6e"]
-[ext_resource type="PackedScene" uid="uid://1y5hl5je58r7" path="res://scenes/landing_page/transition_entrance.tscn" id="7_d22b4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tgnij"]
 size = Vector3(23, 1, 1)
@@ -416,11 +415,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9794636, 0.42736477, 0)
 scene_name = "act_1_1"
 metadata/_edit_lock_ = true
 
-[node name="transition_entrance" parent="transitions" index="1" instance=ExtResource("7_d22b4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.612807, 0.82347643, -0.025039256)
-scene_name = "act_1_1"
-metadata/_edit_lock_ = true
-
 [node name="player" parent="." index="5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
 
@@ -429,5 +423,3 @@ transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 10.189221, 4.9316273, -
 
 [node name="hill" parent="." index="8"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 11.735, -1.553, -10.251)
-
-[editable path="transitions/transition_entrance"]
