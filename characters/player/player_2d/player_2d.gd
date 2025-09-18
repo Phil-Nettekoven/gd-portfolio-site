@@ -30,6 +30,8 @@ func movement(_delta:float)->void:
 	if is_on_floor() && Input.is_action_just_pressed("jump"):
 		velocity.y = JUMP_VELOCITY
 
+	input_dir.x = roundf(input_dir.x)
+
 	if input_dir.x: # Moving
 		velocity.x = input_dir.x * MOVESPEED
 	elif is_on_floor(): # Decelerate if on floor
@@ -52,6 +54,5 @@ func handle_animations()->void:
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	global_position.z = 0
 	movement(_delta)
 	handle_animations()

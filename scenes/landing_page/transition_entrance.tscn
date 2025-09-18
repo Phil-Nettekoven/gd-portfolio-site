@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://blv3s76sab55u" path="res://scenes/landing_page/transition_entrance.gd" id="1_bfmok"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a313f"]
-size = Vector3(0.15029335, 0.34118652, 0.35617065)
+size = Vector3(0.15029335, 0.32992554, 0.35617065)
 
 [node name="transition_entrance" type="Area3D"]
 script = ExtResource("1_bfmok")

@@ -8,7 +8,7 @@ signal player_left_body
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	assert(scene_name, "Transition %s has no scene associated with it!" %name)
+	pass
 
 func _input(_event: InputEvent) -> void:
 	if player_inside == false:

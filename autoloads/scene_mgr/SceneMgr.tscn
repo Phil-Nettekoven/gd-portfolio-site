@@ -6,5 +6,6 @@
 script = ExtResource("1_2i0bf")
 scene_list = Dictionary[String, String]({
 "act_1_1": "res://scenes/landing_page/act_1_1/act_1_1.tscn",
-"act_1_2": "res://scenes/landing_page/act_1_2/act_1_2.tscn"
+"act_1_2": "res://scenes/landing_page/act_1_2/act_1_2.tscn",
+"act_1_3": "res://scenes/landing_page/act_1_3/act_1_3.tscn"
 })
