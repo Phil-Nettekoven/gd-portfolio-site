@@ -8,6 +8,8 @@ const JUMP_VELOCITY:float = 4
 var prev_grounded_y:float = 0
 var direction:String = "right"
 
+var collision_force:float = 20.0
+
 signal grounded_y_changed(new_y_value:float)
 signal direction_changed(new_direction:String)
 
@@ -24,7 +26,6 @@ func movement(_delta:float)->void:
 			prev_grounded_y = global_position.y
 			grounded_y_changed.emit(global_position.y)
 
-	
 	var input_dir:Vector2 = Input.get_vector("left", "right", "up", "down")
 
 	if is_on_floor() && Input.is_action_just_pressed("jump"):
@@ -52,7 +53,22 @@ func handle_animations()->void:
 		direction = cur_direction
 		direction_changed.emit(direction)
 	
+func handle_collisions(_delta:float)->void:
+	for i in get_slide_collision_count():
+		var cur:KinematicCollision3D = get_slide_collision(i)
+		if cur.get_collider() is RigidBody3D:
+			var negative_normal:Vector3 = -cur.get_normal()
+			negative_normal.z = 0
+			cur.get_collider().apply_central_impulse(negative_normal * collision_force * _delta)
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	movement(_delta)
 	handle_animations()
+
+	
+
+func _physics_process(_delta: float) -> void:
+	handle_collisions(_delta)
+	
+	
