@@ -21,7 +21,7 @@ animations = [{
 [sub_resource type="BoxShape3D" id="BoxShape3D_e0hv6"]
 size = Vector3(0.24987793, 0.1404419, 0.12461853)
 
-[node name="chest_1" type="RigidBody3D"]
+[node name="chest_1" type="RigidBody3D" groups=["physics_object"]]
 axis_lock_linear_z = true
 axis_lock_angular_x = true
 axis_lock_angular_y = true

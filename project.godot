@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="portfolio-game"
-run/main_scene="uid://y6na1ye003lq"
+run/main_scene="uid://bs4pf0bwmj6aj"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 boot_splash/show_image=false
 
@@ -39,6 +39,10 @@ window/size/resizable=false
 [editor_plugins]
 
 enabled=PackedStringArray()
+
+[global_group]
+
+physics_object=""
 
 [importer_defaults]
 
