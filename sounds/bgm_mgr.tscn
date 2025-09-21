@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://pdah50dfaal"]
 
-[ext_resource type="Script" uid="uid://7lyr48jmhfm" path="res://scenes/world_1/bgm_mgr.gd" id="1_5s6vj"]
+[ext_resource type="Script" uid="uid://7lyr48jmhfm" path="res://act_2/scenes/world_1/bgm_mgr.gd" id="1_5s6vj"]
 [ext_resource type="AudioStream" uid="uid://cjhyn1vd1lp64" path="res://sounds/music/michael_bgm/pt2redux.ogg" id="5_m4bb4"]
 
 [sub_resource type="Animation" id="Animation_m4bb4"]

@@ -23,7 +23,6 @@ buses/default_bus_layout="uid://ta1fi6jre5c0"
 
 Globals="*res://autoloads/globals.gd"
 UIMgr="*res://autoloads/ui_mgr/ui_mgr.tscn"
-SceneMgr="*res://autoloads/scene_mgr/SceneMgr.tscn"
 
 [debug]
 

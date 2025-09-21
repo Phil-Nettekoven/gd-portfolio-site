@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://brbwl1d6md0fq"]
+
+[ext_resource type="Texture2D" uid="uid://cvpw6lcqanluo" path="res://act_1/objects/player_spawn/player_spawn.png" id="1_thk04"]
+
+[node name="player_spawn" type="Sprite3D"]
+offset = Vector2(0, 16)
+texture_filter = 0
+texture = ExtResource("1_thk04")

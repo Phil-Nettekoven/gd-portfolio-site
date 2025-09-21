@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://b086yoy8t0qbt"]
+
+[ext_resource type="Script" uid="uid://c4xyk7sfxocwr" path="res://act_1/objects/transition_area/transition_area.gd" id="1_k002t"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ic4xy"]
+
+[node name="transition_area" type="Area3D"]
+script = ExtResource("1_k002t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_ic4xy")
+debug_color = Color(6.9912415, 0, 3.938188, 0.90588236)
+metadata/_edit_lock_ = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

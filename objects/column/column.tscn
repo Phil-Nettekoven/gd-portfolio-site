@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://duencpjc0u42c"]
-
-[ext_resource type="Texture2D" uid="uid://b6rq7u0860dyj" path="res://objects/column/column.png" id="1_puqtt"]
-
-[node name="column" type="Sprite3D"]
-offset = Vector2(0, 48)
-texture_filter = 0
-texture = ExtResource("1_puqtt")
-metadata/_edit_lock_ = true

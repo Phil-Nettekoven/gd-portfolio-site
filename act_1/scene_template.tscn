@@ -1,0 +1,99 @@
+[gd_scene load_steps=10 format=3 uid="uid://cjsos4c7ic0r2"]
+
+[ext_resource type="Script" uid="uid://dgl3uwbx6tj8d" path="res://act_1/camera.gd" id="1_agatb"]
+[ext_resource type="Script" uid="uid://kdffsw7cityx" path="res://act_1/scene.gd" id="1_rska1"]
+[ext_resource type="Texture2D" uid="uid://du3bquff4hyyx" path="res://act_1/scenes/act_1_1/midground.png" id="2_vmsmw"]
+[ext_resource type="Texture2D" uid="uid://dkhgy077gee1f" path="res://art/textures/moon.png" id="5_5rk3c"]
+[ext_resource type="Script" uid="uid://cbodsicqaj1v7" path="res://act_1/moving_bg.gd" id="6_xcaan"]
+[ext_resource type="Texture2D" uid="uid://cbapithdedpyx" path="res://art/textures/hill.png" id="7_p3t6r"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_j3mdd"]
+
+[sub_resource type="Gradient" id="Gradient_j3mdd"]
+offsets = PackedFloat32Array(0.004158004, 1)
+colors = PackedColorArray(0.4246582, 0.30042002, 0.29174772, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_icthe"]
+gradient = SubResource("Gradient_j3mdd")
+width = 2048
+height = 2048
+fill_from = Vector2(1, 0)
+fill_to = Vector2(0, 0.7948718)
+
+[node name="scene_template" type="Node3D"]
+script = ExtResource("1_rska1")
+metadata/_edit_lock_ = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 1.972)
+fov = 50.0
+script = ExtResource("1_agatb")
+metadata/_edit_lock_ = true
+
+[node name="layers" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
+metadata/_edit_lock_ = true
+
+[node name="midground" type="Sprite3D" parent="layers"]
+texture_filter = 0
+texture = ExtResource("2_vmsmw")
+metadata/_edit_lock_ = true
+
+[node name="left_bound" type="StaticBody3D" parent="layers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.227619, 0, 0)
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="layers/left_bound"]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_j3mdd")
+debug_color = Color(0, 0.6, 0.7, 0.42)
+metadata/_edit_lock_ = true
+
+[node name="right_bound" type="StaticBody3D" parent="layers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3821254, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="layers/right_bound"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_j3mdd")
+debug_color = Color(0, 0.6, 0.7, 0.42)
+metadata/_edit_lock_ = true
+
+[node name="collision" type="Node3D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="objects" type="Node3D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="background" type="Node3D" parent="objects"]
+metadata/_edit_lock_ = true
+
+[node name="foreground" type="Node3D" parent="objects"]
+metadata/_edit_lock_ = true
+
+[node name="transitions" type="Node3D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="player_spawns" type="Node3D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="moon" type="Sprite3D" parent="."]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 5.1340446, 4.9316273, -7.7479525)
+modulate = Color(0.99999994, 0.640231, 0.36773315, 1)
+render_priority = -10
+texture = ExtResource("5_5rk3c")
+metadata/_edit_lock_ = true
+
+[node name="moving_bg" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 4.273, -7.83)
+render_priority = -128
+texture = SubResource("GradientTexture2D_icthe")
+script = ExtResource("6_xcaan")
+metadata/_edit_lock_ = true
+
+[node name="hill" type="Sprite3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, -1.5530043, -10.250919)
+modulate = Color(0.28118682, 0.28118688, 0.28118682, 1)
+texture_filter = 0
+render_priority = -15
+texture = ExtResource("7_p3t6r")
+metadata/_edit_lock_ = true
