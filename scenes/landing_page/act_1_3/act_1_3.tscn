@@ -24,7 +24,7 @@ size = Vector3(0.564164, 0.027832031, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_6vulr"]
 size = Vector3(0.57039034, 0.024291992, 1)
 
-[node name="scene_template" instance=ExtResource("1_waaay")]
+[node name="act_1_3" instance=ExtResource("1_waaay")]
 
 [node name="midground" parent="layers" index="0"]
 offset = Vector2(0, 128)
@@ -130,19 +130,16 @@ render_priority = -5
 scene_name = "act_1_2"
 metadata/_edit_lock_ = true
 
-[node name="player" parent="." index="5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9506474, 0, 0)
-
-[node name="moon" parent="." index="6"]
+[node name="moon" parent="." index="5"]
 visible = false
 
-[node name="moving_bg" parent="." index="7"]
+[node name="moving_bg" parent="." index="6"]
 visible = false
 
-[node name="hill" parent="." index="8"]
+[node name="hill" parent="." index="7"]
 visible = false
 
-[node name="bg_1" type="Sprite3D" parent="." index="9"]
+[node name="bg_1" type="Sprite3D" parent="." index="8"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0568594, -0.13880046)
 texture_filter = 0
 render_priority = -10

@@ -9,9 +9,11 @@ var prev_grounded_y:float = 0
 var direction:String = "right"
 
 var collision_force:float = 20.0
+var prev_position:Vector3 = self.global_position
 
 signal grounded_y_changed(new_y_value:float)
 signal direction_changed(new_direction:String)
+signal position_changed(new_position:Vector3)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -40,6 +42,10 @@ func movement(_delta:float)->void:
 
 	move_and_slide()
 
+	if global_position != prev_position:
+		position_changed.emit(global_position)
+		prev_position = global_position
+
 func handle_animations()->void:
 	var cur_direction:String = direction
 	
@@ -48,7 +54,6 @@ func handle_animations()->void:
 	elif velocity.x > 0:
 		cur_direction = "right"
 	
-
 	if cur_direction != direction:
 		direction = cur_direction
 		direction_changed.emit(direction)
@@ -65,8 +70,6 @@ func handle_collisions(_delta:float)->void:
 func _process(_delta: float) -> void:
 	movement(_delta)
 	handle_animations()
-
-	
 
 func _physics_process(_delta: float) -> void:
 	handle_collisions(_delta)

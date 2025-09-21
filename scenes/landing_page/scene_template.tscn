@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://cjsos4c7ic0r2"]
 
 [ext_resource type="Script" uid="uid://dgl3uwbx6tj8d" path="res://scenes/landing_page/camera.gd" id="1_agatb"]
+[ext_resource type="Script" uid="uid://kdffsw7cityx" path="res://scenes/landing_page/scene.gd" id="1_rska1"]
 [ext_resource type="Texture2D" uid="uid://du3bquff4hyyx" path="res://scenes/landing_page/act_1_1/midground.png" id="2_vmsmw"]
-[ext_resource type="PackedScene" uid="uid://d2yq6cvt2cxet" path="res://characters/player/player_2d/player_2d.tscn" id="4_ufu10"]
 [ext_resource type="Texture2D" uid="uid://dkhgy077gee1f" path="res://art/textures/moon.png" id="5_5rk3c"]
 [ext_resource type="Script" uid="uid://cbodsicqaj1v7" path="res://scenes/landing_page/moving_bg.gd" id="6_xcaan"]
 [ext_resource type="Texture2D" uid="uid://cbapithdedpyx" path="res://art/textures/hill.png" id="7_p3t6r"]
@@ -21,6 +21,7 @@ fill_from = Vector2(1, 0)
 fill_to = Vector2(0, 0.7948718)
 
 [node name="scene_template" type="Node3D"]
+script = ExtResource("1_rska1")
 metadata/_edit_lock_ = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -69,10 +70,6 @@ metadata/_edit_lock_ = true
 metadata/_edit_lock_ = true
 
 [node name="transitions" type="Node3D" parent="."]
-
-[node name="player" parent="." instance=ExtResource("4_ufu10")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.2, 0)
 
 [node name="moon" type="Sprite3D" parent="."]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 5.1340446, 4.9316273, -7.7479525)
