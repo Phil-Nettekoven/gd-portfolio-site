@@ -1,6 +1,8 @@
 extends Area3D
 
 @export var scene_name:String = ""
+@export var spawn_name:String = ""
+
 var player_inside:bool = false
 
 signal player_entered_body
@@ -8,7 +10,8 @@ signal player_left_body
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	return
+	#assert(scene_name && spawn_name, "Check scene_name or entrance_name in transition " %self.name)
 
 func _input(_event: InputEvent) -> void:
 	if player_inside == false:
@@ -17,6 +20,7 @@ func _input(_event: InputEvent) -> void:
 	if not Input.is_action_just_pressed_by_event("up", _event):
 		return
 
+	ActOneMasterScene.singleton.change_scene(scene_name, spawn_name)
 	#SceneMgr.change_scene(scene_name)
 
 func _on_body_entered(body: Node3D) -> void:

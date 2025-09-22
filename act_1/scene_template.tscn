@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://cjsos4c7ic0r2"]
 
 [ext_resource type="Script" uid="uid://dgl3uwbx6tj8d" path="res://act_1/camera.gd" id="1_agatb"]
-[ext_resource type="Script" uid="uid://kdffsw7cityx" path="res://act_1/scene.gd" id="1_rska1"]
+[ext_resource type="Script" uid="uid://kdffsw7cityx" path="res://act_1/scene_2d.gd" id="1_rska1"]
 [ext_resource type="Texture2D" uid="uid://du3bquff4hyyx" path="res://act_1/scenes/act_1_1/midground.png" id="2_vmsmw"]
 [ext_resource type="Texture2D" uid="uid://dkhgy077gee1f" path="res://art/textures/moon.png" id="5_5rk3c"]
 [ext_resource type="Script" uid="uid://cbodsicqaj1v7" path="res://act_1/moving_bg.gd" id="6_xcaan"]

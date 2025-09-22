@@ -5,8 +5,6 @@ extends Node3D
 @onready var player_spawns:Node3D = $player_spawns
 
 func _init_scene(player_node:CharacterBody3D, spawn_name:String) -> void:
-	camera.init_camera(player_node)
-	moving_bg.init_background(player_node)
 	player_spawns.hide()
 
 	var player_spawn_node:Sprite3D
@@ -18,3 +16,7 @@ func _init_scene(player_node:CharacterBody3D, spawn_name:String) -> void:
 		assert(player_spawn_node, "No player spawn found to default to in scene %s" %self.name)
 	
 	player_node.global_position = player_spawn_node.global_position
+
+	camera.init_camera(player_node)
+	moving_bg.init_background(player_node)
+	

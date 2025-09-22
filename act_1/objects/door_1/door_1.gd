@@ -1,6 +1,7 @@
 extends AnimatedSprite3D
 
 @export var scene_name:String = ""
+@export var spawn_name:String = ""
 
 @onready var transition:Area3D = $transition_entrance
 
@@ -8,6 +9,7 @@ extends AnimatedSprite3D
 func _ready() -> void:
 	assert(scene_name, "Transition %s has no scene associated with it!" %name)
 	transition.scene_name = scene_name
+	transition.spawn_name = spawn_name
 	transition.player_entered_body.connect(_on_player_entered_transition)
 	transition.player_left_body.connect(_on_player_left_transition)
 
