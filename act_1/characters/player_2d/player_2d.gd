@@ -9,7 +9,7 @@ var prev_grounded_y:float = 0
 var direction:String = "right"
 
 var collision_force:float = 20.0
-var prev_position:Vector3 = self.global_position
+@onready var prev_position:Vector3 = self.global_position
 
 signal grounded_y_changed(new_y_value:float)
 signal direction_changed(new_direction:String)

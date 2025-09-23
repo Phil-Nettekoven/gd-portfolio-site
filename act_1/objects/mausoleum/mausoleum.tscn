@@ -56,4 +56,5 @@ metadata/_edit_lock_ = true
 [node name="transition_entrance" parent="." instance=ExtResource("3_nvtjh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15945259, 0)
 scene_name = "act_1_3"
+spawn_name = "from_1_2"
 metadata/_edit_lock_ = true

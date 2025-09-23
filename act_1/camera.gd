@@ -1,12 +1,12 @@
 extends Camera3D
 
-var player: CharacterBody3D = null
+@onready var player: CharacterBody3D = %player
 var player_direction:String
 var prev_position: Vector3
 
 @onready var camera_z_value: float = self.global_position.z
 @onready var camera_y_offset: float = self.global_position.y
-@onready var camera_y_target: float = camera_y_offset
+var camera_y_target: float = camera_y_offset
 
 const LERP_SPEED: float = 5.0
 const X_OFFSET_AMOUNT:float = 0.2
@@ -15,14 +15,20 @@ var cur_x_offset:float = 0.0
 func _ready() -> void:
 	pass
 
-func init_camera(player_node:CharacterBody3D)->void:
-	player = player_node
+func init_camera()->void:
 	player_direction = player.direction
 	prev_position = player.global_position
+	camera_y_target = player.global_position.y + camera_y_offset
 	
 	player.grounded_y_changed.connect(_on_player_y_changed)
 	player.direction_changed.connect(_on_player_direction_changed)
-	self.global_position.x = player.global_position.x
+
+	var initial_position:Vector3
+	initial_position.x = player.global_position.x
+	initial_position.y = camera_y_target
+	initial_position.z = camera_z_value
+
+	self.global_position = initial_position
 
 func update_position(_delta: float) -> void:
 	if player == null: return
@@ -33,7 +39,7 @@ func update_position(_delta: float) -> void:
 	target_position.y = camera_y_target
 	target_position.z = camera_z_value
 
-	self.global_position = lerp(self.global_position, target_position, LERP_SPEED * _delta)
+	self.global_position = self.global_position.lerp(target_position, LERP_SPEED * _delta)
 
 func _on_player_y_changed(new_y_value: float) -> void:
 	camera_y_target = new_y_value + camera_y_offset

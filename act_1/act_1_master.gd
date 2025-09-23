@@ -1,12 +1,12 @@
-class_name ActOneMasterScene extends Node
+class_name ActOneMasterScene extends Node3D
 
 @onready var initial_scene:String = "act_1_3"
 @export var scene_dictionary:Dictionary[String,PackedScene]
-@export var player_scene:PackedScene
 
 var cur_scene:Node3D = null
-@onready var player:CharacterBody3D = $player
-
+var stored_entrance:String = ""
+var stored_scene_name:String = ""
+var in_progress:bool = false
 
 static var _singleton: ActOneMasterScene = null
 static var singleton: ActOneMasterScene:
@@ -19,36 +19,50 @@ func _init() -> void:
 
 func _ready() -> void:
 	assert(initial_scene, "initial_scene is null.")
-	assert(player_scene, "player_scene is null.")
-	player = player_scene.instantiate()
-	player.hide()
 	change_scene(initial_scene)
 
 func _on_transition_used(scene_name:String, entrance_name:String) -> void:
 	change_scene(scene_name, entrance_name)
 
-func change_scene(scene_name:String, entrance_name:String = "") -> void:
+func change_scene(scene_name:String, entrance_name:String = "from_1_2") -> void:
 	assert(scene_name in scene_dictionary, "Scene name %s isn't in the scene dictionary." %scene_name)
 	
-	player.global_position = Vector3(-9999,-9999,-9999)
-	player.hide()
-	
+	if in_progress == true:
+		return
+
+	in_progress = true
+	stored_entrance = entrance_name
+	stored_scene_name = scene_name
+
 	remove_old_scene()
 		
-	cur_scene = scene_dictionary[scene_name].instantiate()
-	
-	self.add_child(cur_scene)
-	cur_scene.add_child(player)
-	cur_scene._init_scene(player, entrance_name)
-	
-	player.show()
-
 func remove_old_scene()->void:
 	if cur_scene == null:
+		create_new_scene()
 		return
-	
-	cur_scene.remove_child(player)
+	if cur_scene.is_queued_for_deletion():
+		return
+
+	cur_scene.tree_exited.connect(create_new_scene)
+	#self.remove_child(cur_scene)
 	cur_scene.queue_free()
+
+func create_new_scene() -> void:
 	cur_scene = null
-	# if is_connected(cur_scene.change_scene, change_scene):
-	# 	cur_scene.change_scene.disconnect(change_scene)
+	cur_scene = scene_dictionary[stored_scene_name].instantiate()
+
+	cur_scene.ready.connect(_on_new_scene_ready)
+	call_deferred("add_child", cur_scene)
+
+func _on_new_scene_ready()->void:
+	assert(stored_entrance && stored_scene_name, "stored_entrance or stored_scene_name is null.")
+
+	cur_scene._init_scene(stored_entrance)
+	stored_entrance = ""
+	stored_scene_name = ""
+	in_progress = false
+
+
+
+
+	

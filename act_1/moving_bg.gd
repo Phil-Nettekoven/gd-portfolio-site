@@ -1,12 +1,8 @@
 extends Sprite3D
 
-var player:CharacterBody3D
+@onready var player:CharacterBody3D = %player
 
 func _ready() -> void:
-	pass
-
-func init_background(player_node:CharacterBody3D)->void:
-	player = player_node
 	self.global_position.x = player.global_position.x
 	player.position_changed.connect(_on_player_position_changed)
 

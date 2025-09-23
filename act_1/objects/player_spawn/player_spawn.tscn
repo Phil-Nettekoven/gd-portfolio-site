@@ -4,5 +4,6 @@
 
 [node name="player_spawn" type="Sprite3D"]
 offset = Vector2(0, 16)
+modulate = Color(0, 0.96839315, 0, 1)
 texture_filter = 0
 texture = ExtResource("1_thk04")

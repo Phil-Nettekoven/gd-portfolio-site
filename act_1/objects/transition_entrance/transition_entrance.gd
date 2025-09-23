@@ -20,6 +20,7 @@ func _input(_event: InputEvent) -> void:
 	if not Input.is_action_just_pressed_by_event("up", _event):
 		return
 
+	#print("HERE")
 	ActOneMasterScene.singleton.change_scene(scene_name, spawn_name)
 	#SceneMgr.change_scene(scene_name)
 
