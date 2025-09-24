@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://dnjp4uhoddysj"]
+
+[ext_resource type="Script" uid="uid://d2f5o2ptmk3s3" path="res://landing_page/objects/button_1/button_1.gd" id="1_c3ff3"]
+[ext_resource type="Texture2D" uid="uid://dt2ej654la71w" path="res://landing_page/objects/button_1/landing_button_1.png" id="2_k4f1d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t1ysm"]
+atlas = ExtResource("2_k4f1d")
+region = Rect2(64, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ivtkv"]
+atlas = ExtResource("2_k4f1d")
+region = Rect2(0, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jb8dp"]
+atlas = ExtResource("2_k4f1d")
+region = Rect2(128, 0, 64, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6ds23"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t1ysm")
+}],
+"loop": true,
+"name": &"active",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivtkv")
+}],
+"loop": true,
+"name": &"inactive",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jb8dp")
+}],
+"loop": true,
+"name": &"pressed",
+"speed": 5.0
+}]
+
+[node name="button_1" type="Node3D"]
+script = ExtResource("1_c3ff3")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_6ds23")
+animation = &"pressed"
