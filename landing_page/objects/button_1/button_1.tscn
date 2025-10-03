@@ -44,8 +44,18 @@ animations = [{
 
 [node name="button_1" type="Node3D"]
 script = ExtResource("1_c3ff3")
+metadata/_edit_lock_ = true
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_6ds23")
 animation = &"pressed"
+
+[node name="Label3D" type="Label3D" parent="AnimatedSprite3D"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -0.035855383)
+texture_filter = 0
+text = "TEXT"
+font_size = 23
+outline_size = 30
+
+[node name="rotate_controller" type="Node3D" parent="."]
