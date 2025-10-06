@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dnjp4uhoddysj"]
+[gd_scene load_steps=8 format=3 uid="uid://dnjp4uhoddysj"]
 
 [ext_resource type="Script" uid="uid://d2f5o2ptmk3s3" path="res://landing_page/objects/button_1/button_1.gd" id="1_c3ff3"]
 [ext_resource type="Texture2D" uid="uid://dt2ej654la71w" path="res://landing_page/objects/button_1/landing_button_1.png" id="2_k4f1d"]
@@ -22,7 +22,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_t1ysm")
 }],
 "loop": true,
-"name": &"active",
+"name": &"hovered",
 "speed": 5.0
 }, {
 "frames": [{
@@ -42,6 +42,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_k4f1d"]
+size = Vector3(0.55983543, 0.20094919, 0.045898438)
+
 [node name="button_1" type="Node3D"]
 script = ExtResource("1_c3ff3")
 metadata/_edit_lock_ = true
@@ -49,13 +52,23 @@ metadata/_edit_lock_ = true
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_6ds23")
-animation = &"pressed"
+animation = &"inactive"
+autoplay = "inactive"
 
 [node name="Label3D" type="Label3D" parent="AnimatedSprite3D"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -0.035855383)
 texture_filter = 0
 text = "TEXT"
 font_size = 23
-outline_size = 30
+outline_size = 0
 
 [node name="rotate_controller" type="Node3D" parent="."]
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00022029877, 0.0029757023, -0.00048828125)
+shape = SubResource("BoxShape3D_k4f1d")
+
+[connection signal="mouse_entered" from="Area3D" to="." method="_on_area_3d_mouse_entered"]
+[connection signal="mouse_exited" from="Area3D" to="." method="_on_area_3d_mouse_exited"]
