@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cb5npv1ueux3p"]
+
+[ext_resource type="Script" uid="uid://123p6l5o8cwu" path="res://autoloads/scene_mgr/scene_mgr.gd" id="1_rba16"]
+
+[node name="SceneMgr" type="CanvasLayer"]
+script = ExtResource("1_rba16")
+scene_dict = Dictionary[String, String]({
+"act_1_1": "res://act_1/scenes/act_1_1/act_1_1.tscn",
+"act_1_2": "res://act_1/scenes/act_1_2/act_1_2.tscn",
+"act_1_3": "res://act_1/scenes/act_1_3/act_1_3.tscn",
+"act_2_1": "res://act_2/scenes/world_1/world_1.tscn"
+})
+metadata/_edit_lock_ = true

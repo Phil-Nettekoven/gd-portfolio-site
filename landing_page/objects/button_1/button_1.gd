@@ -17,6 +17,8 @@ var mouse_in_button:bool = false
 enum STATE {INACTIVE, HOVERED, PRESSED}
 var cur_state: STATE = STATE.INACTIVE
 
+signal pressed
+
 func _ready() -> void:
 	label3d.text = text
 
@@ -33,7 +35,6 @@ func rotation_velocity(_delta: float) -> void:
 
 func _on_area_3d_mouse_entered() -> void:
 	cur_state = STATE.HOVERED
-	#animated_sprite.play("hovered")
 	mouse_in_button = true
 
 func _on_area_3d_mouse_exited() -> void:
@@ -41,18 +42,26 @@ func _on_area_3d_mouse_exited() -> void:
 	animated_sprite.play("inactive")
 	mouse_in_button = false
 
-func _input(_event: InputEvent) -> void:
-	if !(_event is InputEventMouseButton):
+func _input(event: InputEvent) -> void:
+	if !(event is InputEventMouseButton):
 		return
+
+	#var handle_input:bool = false
 
 	if Input.is_action_just_pressed("left_click"):
 		if cur_state == STATE.HOVERED:
 			cur_state = STATE.PRESSED
 			animated_sprite.play("pressed")
+			#handle_input = true
 	elif Input.is_action_just_released("left_click"):
 		if cur_state == STATE.PRESSED:
 			cur_state = STATE.HOVERED
 			animated_sprite.play("inactive")
+			#handle_input = true
+			pressed.emit()
+
+	# if handle_input:
+	# 	get_viewport().set_input_as_handled()
 	
 	
 func _physics_process(_delta: float) -> void:
