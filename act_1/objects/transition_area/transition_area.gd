@@ -16,4 +16,4 @@ func _on_body_entered(body: Node3D) -> void:
 	if body.name != "player":
 		return
 	
-	ActOneMasterScene.singleton.change_scene(scene_name, spawn_name)
+	SceneMgr.change_scene(scene_name, spawn_name)

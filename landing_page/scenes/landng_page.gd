@@ -8,7 +8,7 @@ func _ready() -> void:
     act_2_button.pressed.connect(_on_act_2_button_pressed)
 
 func _on_act_1_button_pressed() -> void:
-    SceneMgr.change_scene("act_1_1")
+    SceneMgr.change_scene("act_1_1", "initial_spawn")
 
 func _on_act_2_button_pressed() -> void:
     SceneMgr.change_scene("act_2_1")
