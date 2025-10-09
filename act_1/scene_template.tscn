@@ -23,6 +23,7 @@ fill_to = Vector2(0, 0.7948718)
 
 [node name="scene_template" type="Node3D"]
 script = ExtResource("1_rska1")
+player_scene = ExtResource("7_0k8gc")
 metadata/_edit_lock_ = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -30,9 +31,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 1.972)
 fov = 50.0
 script = ExtResource("1_agatb")
 metadata/_edit_lock_ = true
-
-[node name="player" parent="." instance=ExtResource("7_0k8gc")]
-unique_name_in_owner = true
 
 [node name="layers" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)

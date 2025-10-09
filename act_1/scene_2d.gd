@@ -4,19 +4,13 @@ extends Node3D
 @onready var moving_bg:Sprite3D = $moving_bg
 
 @onready var player_spawns:Node3D = $player_spawns
-@onready var player:CharacterBody3D = %player
+var player:CharacterBody3D
 
+@export var player_scene:PackedScene
 
 func _ready() -> void:
-	#assert(spawn_name, "No spawn name provided transitioning to scene %s" %self.name)
 	player_spawns.hide()
-	if !player.is_node_ready():
-		player.ready.connect(_on_player_ready)
-	else:
-		_on_player_ready()
-
-
-func _on_player_ready()->void:
+	player = player_scene.instantiate()
 	var spawn_name:String = SceneMgr.get_entrance_name()
 
 	var player_spawn_node:Sprite3D
@@ -27,4 +21,11 @@ func _on_player_ready()->void:
 		player_spawn_node = player_spawn_node.get_children()[0]
 
 	player.global_position = player_spawn_node.global_position
-	camera.init_camera()
+	
+	player.ready.connect(_on_player_ready)
+	self.add_child(player)
+	
+
+func _on_player_ready()->void:
+	camera.init_camera(player)
+	moving_bg.init_moving_bg(player)

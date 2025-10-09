@@ -1,6 +1,6 @@
 extends Camera3D
 
-@onready var player: CharacterBody3D = %player
+var player: CharacterBody3D = null
 var player_direction:String
 var prev_position: Vector3
 
@@ -15,7 +15,9 @@ var cur_x_offset:float = 0.0
 func _ready() -> void:
 	pass
 
-func init_camera()->void:
+func init_camera(player_node:CharacterBody3D)->void:
+	player = player_node
+
 	player_direction = player.direction
 	prev_position = player.global_position
 	camera_y_target = player.global_position.y + camera_y_offset

@@ -1,8 +1,10 @@
 extends Sprite3D
 
-@onready var player:CharacterBody3D = %player
+var player:CharacterBody3D = null
 
-func _ready() -> void:
+func init_moving_bg(player_node:CharacterBody3D) -> void:
+	player = player_node
+
 	self.global_position.x = player.global_position.x
 	player.position_changed.connect(_on_player_position_changed)
 
