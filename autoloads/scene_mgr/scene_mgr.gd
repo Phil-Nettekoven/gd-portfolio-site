@@ -12,7 +12,7 @@ func change_scene(scene_name: String, spawn_name: String = "") -> void:
 
 	var scene:PackedScene = load(scene_dict[scene_name])
 
-	get_tree().change_scene_to_packed(scene)
+	get_tree().call_deferred("change_scene_to_packed",scene)
 
 func get_entrance_name() -> String:
 	var entrance_name: String = ""
