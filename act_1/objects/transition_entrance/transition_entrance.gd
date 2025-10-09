@@ -3,7 +3,7 @@ extends Area3D
 @export var scene_name:String = ""
 @export var spawn_name:String = ""
 
-var player_inside:bool = false
+var player:CharacterBody3D = null
 
 signal player_entered_body
 signal player_left_body
@@ -14,7 +14,10 @@ func _ready() -> void:
 	#assert(scene_name && spawn_name, "Check scene_name or entrance_name in transition " %self.name)
 
 func _input(_event: InputEvent) -> void:
-	if player_inside == false:
+	if player == null:
+		return
+
+	if !player.is_on_floor():
 		return
 	
 	if not Input.is_action_just_pressed_by_event("up", _event):
@@ -23,15 +26,15 @@ func _input(_event: InputEvent) -> void:
 	SceneMgr.change_scene(scene_name, spawn_name)
 
 func _on_body_entered(body: Node3D) -> void:
-	if body.name != "player":
+	if body.name != "player" || body is not CharacterBody3D:
 		return
 	
-	player_inside = true
+	player = body
 	player_entered_body.emit()
 
 func _on_body_exited(body: Node3D) -> void:
 	if body.name != "player":
 		return
 	
-	player_inside = false
+	player = null
 	player_left_body.emit()
