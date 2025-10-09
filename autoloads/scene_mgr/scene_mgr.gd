@@ -8,8 +8,7 @@ func change_scene(scene_name: String, spawn_name: String = "") -> void:
 		Globals.gprint("Scene %s not in scene_dict."%scene_name)
 		return
 
-	if scene_name != "":
-		stored_entrance_name = spawn_name
+	stored_entrance_name = spawn_name
 
 	var scene:PackedScene = load(scene_dict[scene_name])
 

@@ -60,9 +60,12 @@ func gprint(text: Variant) -> void:
 	print(unix_time_string + " " + casted_text)
 
 func _input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("quit") && OS.has_feature("editor"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		get_tree().quit()
+	if Input.is_action_just_pressed("quit"):
+		if  OS.has_feature("editor"):
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			get_tree().quit()
+		else:
+			SceneMgr.change_scene("landing_page")
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_APPLICATION_FOCUS_OUT:

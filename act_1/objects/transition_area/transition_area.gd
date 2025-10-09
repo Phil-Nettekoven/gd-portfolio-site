@@ -11,7 +11,6 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
-
 func _on_body_entered(body: Node3D) -> void:
 	if body.name != "player":
 		return
