@@ -7,8 +7,8 @@ const TILE_WIDTH:int = 300
 var world_tiles:Dictionary[Vector2i,Node3D] = {}
 
 func _ready() -> void:
-	if Globals.OS_TYPE == "desktop":
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	UIMgr.mouse_needed = true
+	UIMgr.delayed_mouse_grab = false
 	init_world()
 
 func init_world()->void:

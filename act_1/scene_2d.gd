@@ -10,6 +10,9 @@ var player_spawn_node:Sprite3D
 @export var player_scene:PackedScene
 
 func _ready() -> void:
+	UIMgr.mouse_needed = true
+	UIMgr.delayed_mouse_grab = true
+	
 	player_spawns.hide()
 	player = player_scene.instantiate()
 	var spawn_name:String = SceneMgr.get_entrance_name()

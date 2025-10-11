@@ -59,14 +59,6 @@ func gprint(text: Variant) -> void:
 	var unix_time_string: String = Time.get_time_string_from_unix_time(int(unix_time_float))
 	print(unix_time_string + " " + casted_text)
 
-func _input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("quit"):
-		if  OS.has_feature("editor"):
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-			get_tree().quit()
-		else:
-			SceneMgr.change_scene("landing_page")
-
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_APPLICATION_FOCUS_OUT:
 		get_tree().paused = true

@@ -14,8 +14,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is not InputEventMouseMotion: 
 		return
 	
-	if Globals.OS_TYPE == "web_desktop" && (Input.mouse_mode != Input.MOUSE_MODE_CAPTURED):
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
 	
 	free_camera(event)
 	rotation_degrees.y =  fposmod(rotation_degrees.y, 360)

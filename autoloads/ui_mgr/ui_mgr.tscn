@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://chxf4071lfr0"]
+[gd_scene load_steps=8 format=3 uid="uid://chxf4071lfr0"]
 
 [ext_resource type="Script" uid="uid://cx3wu85x3ljpy" path="res://autoloads/ui_mgr/ui_mgr.gd" id="1_ibd83"]
 [ext_resource type="Texture2D" uid="uid://dwmuytjutiinr" path="res://art/textures/ui/mobile_button_unpressed.png" id="2_d5b3w"]
@@ -9,6 +9,27 @@ radius = 14.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6hfk6"]
 radius = 14.0
+
+[sub_resource type="FontFile" id="FontFile_d5b3w"]
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/32/0/ascent = 0.0
+cache/0/32/0/descent = 0.0
+cache/0/32/0/underline_position = 0.0
+cache/0/32/0/underline_thickness = 0.0
+cache/0/32/0/scale = 1.0
+cache/0/50/0/ascent = 0.0
+cache/0/50/0/descent = 0.0
+cache/0/50/0/underline_position = 0.0
+cache/0/50/0/underline_thickness = 0.0
+cache/0/50/0/scale = 1.0
+
+[sub_resource type="Theme" id="Theme_6hfk6"]
+default_font = SubResource("FontFile_d5b3w")
+default_font_size = 50
 
 [node name="UiMgr" type="CanvasLayer"]
 layer = 99
@@ -86,3 +107,45 @@ shape = SubResource("CircleShape2D_6hfk6")
 passby_press = true
 action = "jump"
 metadata/_edit_lock_ = true
+
+[node name="game_menu" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 1.0
+metadata/_edit_lock_ = true
+
+[node name="resume" type="Button" parent="game_menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 699.0
+offset_top = 346.0
+offset_right = -726.0
+offset_bottom = -581.0
+grow_horizontal = 2
+theme = SubResource("Theme_6hfk6")
+text = "Resume"
+
+[node name="quit" type="Button" parent="game_menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 699.0
+offset_top = 685.0
+offset_right = -726.0
+offset_bottom = -242.0
+grow_horizontal = 2
+theme = SubResource("Theme_6hfk6")
+text = "Quit to Menu"
+
+[node name="mouse_grab_timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+ignore_time_scale = true
+
+[connection signal="pressed" from="game_menu/resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="game_menu/quit" to="." method="_on_quit_pressed"]
+[connection signal="timeout" from="mouse_grab_timer" to="." method="_on_mouse_grab_timer_timeout"]
