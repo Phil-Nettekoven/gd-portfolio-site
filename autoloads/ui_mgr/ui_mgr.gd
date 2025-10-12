@@ -44,6 +44,10 @@ func toggle_game_menu()->void:
 
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("menu"):
+		if get_tree().current_scene.name == "landing_page":
+			get_tree().quit()
+			return	
+
 		toggle_game_menu()
 		return
 	if _event is InputEventMouse:
@@ -61,15 +65,12 @@ func _manage_mouse_mode()->void:
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
-
 
 func _on_mouse_grab_timer_timeout() -> void:
 	print("HERE")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
 
 func _on_resume_pressed() -> void:
 	toggle_game_menu()
