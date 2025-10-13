@@ -1,4 +1,4 @@
-extends Node2D
+extends Node3D
 
 @export var tile_scene:PackedScene
 const WORLD_SCALE:int = 10

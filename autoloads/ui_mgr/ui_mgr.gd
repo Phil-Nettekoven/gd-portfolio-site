@@ -46,7 +46,7 @@ func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("menu"):
 		if get_tree().current_scene.name == "landing_page":
 			get_tree().quit()
-			return	
+			return
 
 		toggle_game_menu()
 		return
