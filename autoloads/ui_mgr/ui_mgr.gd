@@ -10,7 +10,6 @@ var grab_mouse_when_needed:bool = true
 var delayed_mouse_grab:bool = true
 var mouse_needed:bool = false
 
-
 func _ready() -> void:
 	if Globals.OS_TYPE == "web_android":
 		init_mobile_controls()
@@ -21,7 +20,6 @@ func _ready() -> void:
 
 func init_desktop_ui()->void:	
 	grab_mouse_when_needed = true
-
 
 func init_mobile_controls()->void:
 	mobile_controls.show()
@@ -69,12 +67,10 @@ func _process(_delta: float) -> void:
 	pass
 
 func _on_mouse_grab_timer_timeout() -> void:
-	print("HERE")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _on_resume_pressed() -> void:
 	toggle_game_menu()
-
 
 func _on_quit_pressed() -> void:
 	if SceneMgr.change_scene("landing_page"):
