@@ -26,7 +26,7 @@ var state: STATE = STATE.free
 var player_direction: String = "down"
 var input_dir: Vector2 = Vector2.DOWN
 
-signal just_touched_ground
+#signal just_touched_ground
 var touched_ground: bool = false
 #endregion
 
@@ -71,7 +71,6 @@ func free_movement(_delta: float) -> void:
 		# velocity.x = 0
 		# velocity.z = 0
 	
-
 func spin_startup_movement(_delta: float) -> void:
 	var cur_deceleration:float = Globals.DECELERATION
 	if not is_on_floor():

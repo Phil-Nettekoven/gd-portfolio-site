@@ -15,12 +15,16 @@ signal grounded_y_changed(new_y_value:float)
 signal direction_changed(new_direction:String)
 signal position_changed(new_position:Vector3)
 
+enum STATE {free, spin_startup, spinning_locked,spinning_free, disabled}
+var state: STATE = STATE.free
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
 
+#region movement_logic
 
-func movement(_delta:float)->void:
+func free_movement(_delta:float)->void:
 	if not is_on_floor():
 		velocity += (get_gravity() * Globals.GRAVITY_MOD) * _delta
 	else:
@@ -40,11 +44,34 @@ func movement(_delta:float)->void:
 	elif is_on_floor(): # Decelerate if on floor
 		velocity.x = 0
 
-	move_and_slide()
+func spin_startup_movement(_delta: float) -> void:
+	var cur_deceleration:float = Globals.DECELERATION
+	if not is_on_floor():
+		velocity += (get_gravity() * Globals.GRAVITY_MOD) * _delta
+		cur_deceleration = Globals.SPRINT_DECELERATION
 
-	if global_position != prev_position:
-		position_changed.emit(global_position)
-		prev_position = global_position
+	velocity.x = move_toward(velocity.x, 0, _delta * cur_deceleration)
+	velocity.z = move_toward(velocity.z, 0, _delta * cur_deceleration)
+
+func spin_movement(_delta:float)->void:
+	if not is_on_floor():
+		velocity += (get_gravity() * Globals.GRAVITY_MOD) * _delta
+		# velocity.x = move_toward(velocity.x, 0, _delta * Globals.AIR_DECELERATION* 2)
+		# velocity.z = move_toward(velocity.z, 0, _delta * Globals.AIR_DECELERATION * 2)
+	elif Input.is_action_pressed("jump"):
+		velocity.y = Globals.JUMP_VELOCITY
+
+	var input_dir:Vector2
+
+	input_dir = Vector2.RIGHT
+	var movement_direction: Vector3 = Vector3(input_dir.x, 0, input_dir.y).normalized()
+	#direction = direction.rotated(Vector3.UP, camera.global_rotation.y)
+	
+	movement_direction *= Globals.SPIN_MOVESPEED
+	velocity.x = move_toward(velocity.x, movement_direction.x, _delta * Globals.SPRINT_ACCELERATION)
+	velocity.z = move_toward(velocity.z, movement_direction.z, _delta * Globals.SPRINT_ACCELERATION)
+	
+#endregion
 
 func handle_animations()->void:
 	var cur_direction:String = direction
@@ -68,8 +95,20 @@ func handle_collisions(_delta:float)->void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	movement(_delta)
+	if state in [STATE.free, STATE.spinning_free]:
+		free_movement(_delta)
+	elif state == STATE.spin_startup:
+		spin_startup_movement(_delta)
+	elif state == STATE.spinning_locked:
+		spin_movement(_delta)
+	
 	handle_animations()
+	move_and_slide()
+
+	if global_position != prev_position:
+		position_changed.emit(global_position)
+		prev_position = global_position
+
 
 func _physics_process(_delta: float) -> void:
 	handle_collisions(_delta)
