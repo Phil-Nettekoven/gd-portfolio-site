@@ -26,7 +26,7 @@ var state: STATE = STATE.free
 var player_direction: String = "down"
 var input_dir: Vector2 = Vector2.DOWN
 
-#signal just_touched_ground
+signal just_touched_ground
 var touched_ground: bool = false
 #endregion
 
@@ -49,7 +49,7 @@ func free_movement(_delta: float) -> void:
 	if touched_ground == false: # Emit the first time player touches the ground
 		if is_on_floor():
 			touched_ground = true
-			#just_touched_ground.emit()
+			just_touched_ground.emit()
 		else:
 			return
 	

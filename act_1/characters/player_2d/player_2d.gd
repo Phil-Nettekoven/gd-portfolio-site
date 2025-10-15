@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-@onready var sprite:AnimatedSprite3D = $sprite
+@onready var sprite:AnimatedSprite3D = $sprite_pivot/sprite
 const MOVESPEED:float = 2
 const ACCELERATION:float = 5
 const JUMP_VELOCITY:float = 4
@@ -61,16 +61,121 @@ func spin_movement(_delta:float)->void:
 	elif Input.is_action_pressed("jump"):
 		velocity.y = Globals.JUMP_VELOCITY
 
-	var input_dir:Vector2
+	var movement_direction:Vector3
 
-	input_dir = Vector2.RIGHT
-	var movement_direction: Vector3 = Vector3(input_dir.x, 0, input_dir.y).normalized()
-	#direction = direction.rotated(Vector3.UP, camera.global_rotation.y)
+	if direction == "left":
+		movement_direction = Vector3.LEFT
+	else:
+		movement_direction = Vector3.RIGHT
 	
 	movement_direction *= Globals.SPIN_MOVESPEED
 	velocity.x = move_toward(velocity.x, movement_direction.x, _delta * Globals.SPRINT_ACCELERATION)
 	velocity.z = move_toward(velocity.z, movement_direction.z, _delta * Globals.SPRINT_ACCELERATION)
 	
+#endregion
+
+#region spin_logic
+
+@onready var sprite_pivot:Node3D = $sprite_pivot
+@onready var animation_player:AnimationPlayer = $AnimationPlayer
+@export var rotation_speed: float = Globals.MIN_SPIN_TARGET_SPEED
+var target_rotation_speed: float = Globals.MIN_SPIN_TARGET_SPEED
+var added_speed: bool = false
+var can_spin:bool = true
+
+var tween:Tween = null
+var tween_started:bool = false
+
+
+func enter_spin_state() -> void:
+	if rotation_speed > Globals.SPIN_TRANSITION_THRESHOLD:
+		state = STATE.spinning_locked
+	else:
+		state = STATE.spin_startup
+
+	if tween:
+		tween.kill()
+		tween = null
+	
+	#sprite_pivot.rotation.y = camera_pivot.rotation.y
+	animation_player.play("flip_x")
+
+	sprite.offset = Globals.SPRITE_SPIN_OFFSET
+
+func exit_spin_state() -> void:
+	
+	sprite.offset = Globals.SPRITE_NORMAL_OFFSET
+	
+	state = STATE.free
+	animation_player.play("unflip_x")
+
+func charge_spin(_delta:float) -> void:
+	if can_spin && Input.is_action_pressed("charge") && state == STATE.spin_startup:
+		target_rotation_speed = move_toward(target_rotation_speed, Globals.MAX_SPIN_TARGET_SPEED, Globals.SPIN_ACCELERATION * _delta)
+		added_speed = true
+		return
+
+	target_rotation_speed = move_toward(target_rotation_speed, Globals.MIN_SPIN_TARGET_SPEED, Globals.SPIN_ACCELERATION * _delta)
+	if target_rotation_speed <= Globals.MIN_SPIN_TARGET_SPEED:
+		can_spin = true
+	added_speed = false
+
+func rotate_sprite(_delta: float) -> void:
+	
+	if added_speed:
+		rotation_speed = move_toward(rotation_speed, target_rotation_speed, _delta * Globals.SPIN_ACCELERATION)
+	elif can_spin && rotation_speed > Globals.MIN_SPIN_TARGET_SPEED && !tween_started:
+		rotation_speed = move_toward(rotation_speed, Globals.MIN_SPIN_TARGET_SPEED, _delta * Globals.SPIN_ACCELERATION)
+
+	if  rotation_speed <= Globals.MIN_SPIN_TARGET_SPEED && animation_player.is_playing():
+		return
+	
+	if state == STATE.free && rotation_speed <= Globals.MIN_SPIN_TARGET_SPEED:
+		reset_rotation()
+
+	#sprite_pivot.rotation_degrees.y += rotation_speed * _delta
+	var new_rotation_y:float = sprite_pivot.rotation_degrees.y - (rotation_speed * _delta)
+	sprite_pivot.rotation_degrees.y = wrapf(new_rotation_y, 0.0, 360.0)
+	
+	if is_on_floor() && state == STATE.spin_startup && rotation_speed >= Globals.MAX_SPIN_TARGET_SPEED:
+		state = STATE.spinning_locked
+		
+		var spin_direction:Vector3
+
+		if direction == "left":
+			spin_direction = Vector3.LEFT
+		else:
+			spin_direction = Vector3.RIGHT
+		velocity.x = spin_direction.x * Globals.SPIN_MOVESPEED
+		velocity.z = spin_direction.z * Globals.SPIN_MOVESPEED
+		can_spin = false
+		
+	elif state == STATE.spinning_locked && can_spin:
+		state = STATE.spin_startup
+
+	added_speed = false
+
+func reset_rotation() -> void:
+	if tween:
+		return
+
+	var tween_speed:float = 0.25
+	var y_target_degrees:float = 0
+
+	if y_target_degrees > sprite_pivot.rotation_degrees.y:
+		y_target_degrees -= 360
+
+	tween = get_tree().create_tween()
+	tween.finished.connect(_on_tween_finished)
+	tween.tween_property(sprite_pivot, "rotation_degrees:y", y_target_degrees, tween_speed)
+	
+
+func _on_tween_finished()->void:
+	# if state == STATE.free && !animation_player.is_playing():
+	# 	sprite.billboard = BaseMaterial3D.BILLBOARD_FIXED_Y
+	tween = null
+
+
 #endregion
 
 func handle_animations()->void:
@@ -93,6 +198,12 @@ func handle_collisions(_delta:float)->void:
 			negative_normal.z = 0
 			cur.get_collider().apply_central_impulse(negative_normal * collision_force * _delta)
 
+func _input(_event: InputEvent) -> void:
+	if Input.is_action_just_pressed("lock_camera"):
+		enter_spin_state()
+	elif Input.is_action_just_released("lock_camera"):
+		exit_spin_state()
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if state in [STATE.free, STATE.spinning_free]:
@@ -101,7 +212,8 @@ func _process(_delta: float) -> void:
 		spin_startup_movement(_delta)
 	elif state == STATE.spinning_locked:
 		spin_movement(_delta)
-	
+	charge_spin(_delta)
+	rotate_sprite(_delta)
 	handle_animations()
 	move_and_slide()
 
