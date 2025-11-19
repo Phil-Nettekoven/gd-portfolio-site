@@ -82,6 +82,7 @@ func spin_movement(_delta:float)->void:
 var target_rotation_speed: float = Globals.MIN_SPIN_TARGET_SPEED
 var added_speed: bool = false
 var can_spin:bool = true
+var rotation_locked:bool = true
 
 var tween:Tween = null
 var tween_started:bool = false
@@ -98,16 +99,20 @@ func enter_spin_state() -> void:
 		tween = null
 	
 	#sprite_pivot.rotation.y = camera_pivot.rotation.y
+	
 	animation_player.play("flip_x")
 
-	sprite.offset = Globals.SPRITE_SPIN_OFFSET
+	sprite.offset = Globals.SPRITE_2D_SPIN_OFFSET
+	rotation_locked = false
 
 func exit_spin_state() -> void:
 	
-	sprite.offset = Globals.SPRITE_NORMAL_OFFSET
+	sprite.offset = Globals.SPRITE_2D_NORMAL_OFFSET
 	
 	state = STATE.free
 	animation_player.play("unflip_x")
+	# spin = false
+	sprite_pivot.rotation_degrees.y = 0
 
 func charge_spin(_delta:float) -> void:
 	if can_spin && Input.is_action_pressed("charge") && state == STATE.spin_startup:
@@ -121,6 +126,7 @@ func charge_spin(_delta:float) -> void:
 	added_speed = false
 
 func rotate_sprite(_delta: float) -> void:
+	if rotation_locked: return
 	
 	if added_speed:
 		rotation_speed = move_toward(rotation_speed, target_rotation_speed, _delta * Globals.SPIN_ACCELERATION)
@@ -133,7 +139,6 @@ func rotate_sprite(_delta: float) -> void:
 	if state == STATE.free && rotation_speed <= Globals.MIN_SPIN_TARGET_SPEED:
 		reset_rotation()
 
-	#sprite_pivot.rotation_degrees.y += rotation_speed * _delta
 	var new_rotation_y:float = sprite_pivot.rotation_degrees.y - (rotation_speed * _delta)
 	sprite_pivot.rotation_degrees.y = wrapf(new_rotation_y, 0.0, 360.0)
 	
@@ -174,6 +179,8 @@ func _on_tween_finished()->void:
 	# if state == STATE.free && !animation_player.is_playing():
 	# 	sprite.billboard = BaseMaterial3D.BILLBOARD_FIXED_Y
 	tween = null
+	rotation_locked = true
+	#sprite_pivot.rotation_degrees.y = 0
 
 
 #endregion
