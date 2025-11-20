@@ -14,11 +14,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is not InputEventMouseMotion: 
 		return
 	
-
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 	free_camera(event)
 	rotation_degrees.y =  fposmod(rotation_degrees.y, 360)
-		
+	
 
 func free_camera(event: InputEvent)->void:
 	rotation.x -= event.relative.y * mouse_sensitivity

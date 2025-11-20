@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cy1048g3kqwm2"]
 
-[ext_resource type="Script" uid="uid://c51xcbi2it52q" path="res://landing_page/scenes/landng_page.gd" id="1_0f53d"]
+[ext_resource type="Script" uid="uid://c51xcbi2it52q" path="res://landing_page/scenes/landing_page.gd" id="1_0f53d"]
 [ext_resource type="PackedScene" uid="uid://dnjp4uhoddysj" path="res://landing_page/objects/button_1/button_1.tscn" id="1_b767f"]
 
 [node name="landing_page" type="Node3D"]

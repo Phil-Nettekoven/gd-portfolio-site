@@ -195,7 +195,7 @@ _data = {
 &"unflip_x": SubResource("Animation_5dc8e")
 }
 
-[node name="player" type="CharacterBody3D"]
+[node name="player2" type="CharacterBody3D"]
 collision_layer = 2
 collision_mask = 5
 floor_max_angle = 1.309

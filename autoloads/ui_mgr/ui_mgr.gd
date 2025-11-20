@@ -52,9 +52,9 @@ func _input(_event: InputEvent) -> void:
 		_manage_mouse_mode()
 
 func _manage_mouse_mode()->void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 	if cur_state in [UI_STATE.GAME_MENU]:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		return
 	
 	if grab_mouse_when_needed and mouse_needed:
