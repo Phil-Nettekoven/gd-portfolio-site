@@ -30,8 +30,8 @@ const SPIN_MOVESPEED: float = 200
 const SPRITE_NORMAL_OFFSET: Vector2 = Vector2(0, 16)
 const SPRITE_SPIN_OFFSET: Vector2 = Vector2(0, 13)
 
-const SPRITE_2D_NORMAL_OFFSET: Vector2 = Vector2(0, 16)
-const SPRITE_2D_SPIN_OFFSET: Vector2 = Vector2(0, 24)
+# const SPRITE_2D_NORMAL_OFFSET: Vector2 = Vector2(0, 16)
+# const SPRITE_2D_SPIN_OFFSET: Vector2 = Vector2(0, 24)
 
 var OS_TYPE: String = ""
 var DEBUG_BUILD:bool = false

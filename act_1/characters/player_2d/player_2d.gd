@@ -18,7 +18,6 @@ signal position_changed(new_position:Vector3)
 enum STATE {free, spin_startup, spinning_locked,spinning_free, disabled}
 var state: STATE = STATE.free
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
 
@@ -87,7 +86,6 @@ var rotation_locked:bool = true
 var tween:Tween = null
 var tween_started:bool = false
 
-
 func enter_spin_state() -> void:
 	if rotation_speed > Globals.SPIN_TRANSITION_THRESHOLD:
 		state = STATE.spinning_locked
@@ -97,21 +95,13 @@ func enter_spin_state() -> void:
 	if tween:
 		tween.kill()
 		tween = null
-	
-	#sprite_pivot.rotation.y = camera_pivot.rotation.y
-	
+	  
 	animation_player.play("flip_x")
-
-	sprite.offset = Globals.SPRITE_2D_SPIN_OFFSET
 	rotation_locked = false
 
 func exit_spin_state() -> void:
-	
-	sprite.offset = Globals.SPRITE_2D_NORMAL_OFFSET
-	
 	state = STATE.free
 	animation_player.play("unflip_x")
-	# spin = false
 	sprite_pivot.rotation_degrees.y = 0
 
 func charge_spin(_delta:float) -> void:
@@ -211,7 +201,6 @@ func _input(_event: InputEvent) -> void:
 	elif Input.is_action_just_released("lock_camera"):
 		exit_spin_state()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if state in [STATE.free, STATE.spinning_free]:
 		free_movement(_delta)
@@ -228,8 +217,5 @@ func _process(_delta: float) -> void:
 		position_changed.emit(global_position)
 		prev_position = global_position
 
-
 func _physics_process(_delta: float) -> void:
 	handle_collisions(_delta)
-	
-	
