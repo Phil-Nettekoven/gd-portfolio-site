@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/pt2redux.ogg-3059b6a08bf8db6321e4551a3846bd7a
 [params]
 
 loop=false
-loop_offset=0
-bpm=0
+loop_offset=0.0
+bpm=0.0
 beat_count=0
 bar_beats=4

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cy1048g3kqwm2"]
+[gd_scene load_steps=4 format=3 uid="uid://cy1048g3kqwm2"]
 
 [ext_resource type="Script" uid="uid://c51xcbi2it52q" path="res://landing_page/scenes/landing_page.gd" id="1_0f53d"]
 [ext_resource type="PackedScene" uid="uid://dnjp4uhoddysj" path="res://landing_page/objects/button_1/button_1.tscn" id="1_b767f"]
+[ext_resource type="FontFile" uid="uid://eohnx6s6hpdv" path="res://art/fonts/WaterResistant.ttf" id="3_uaxuw"]
 
 [node name="landing_page" type="Node3D"]
 script = ExtResource("1_0f53d")
@@ -11,11 +12,11 @@ metadata/_edit_lock_ = true
 metadata/_edit_lock_ = true
 
 [node name="act_1_button" parent="buttons" instance=ExtResource("1_b767f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -0.69, 0)
 text = "ACT 1"
 
 [node name="act_2_button" parent="buttons" instance=ExtResource("1_b767f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.69049484, 0)
 text = "ACT 2"
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -26,3 +27,12 @@ fov = 75.8
 [node name="Follow" type="Node3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.837333)
+
+[node name="tagline" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0034928024, -0.43988198, -0.8091414)
+texture_filter = 0
+modulate = Color(0.75344735, 0.67313826, 0.9099662, 1)
+text = "'JUST AROUND THE CORNER'"
+font = ExtResource("3_uaxuw")
+font_size = 35
+outline_size = 0
