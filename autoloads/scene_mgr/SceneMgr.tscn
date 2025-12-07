@@ -9,7 +9,7 @@ scene_dict = Dictionary[String, String]({
 "act_1_2": "res://act_1/scenes/act_1_2/act_1_2.tscn",
 "act_1_3": "res://act_1/scenes/act_1_3/act_1_3.tscn",
 "act_2_1": "res://act_2/scenes/world_1/world_1.tscn",
-"landing_page": "res://landing_page/scenes/landing_page.tscn",
+"landing_page": "res://landing_page/scenes/landing_page_main/landing_page.tscn",
 "mobile_warning": "res://start_page/mobile_warning.tscn"
 })
 metadata/_edit_lock_ = true

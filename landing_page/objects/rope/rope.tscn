@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ppx05l7myod2"]
+
+[ext_resource type="Script" uid="uid://ccoguijxur14v" path="res://landing_page/objects/rope/rope.gd" id="1_kj8gq"]
+
+[node name="Rope" type="PinJoint3D"]
+script = ExtResource("1_kj8gq")
