@@ -2,27 +2,22 @@
 
 [ext_resource type="Script" uid="uid://cmaotscie0pvv" path="res://landing_page/scenes/ts_rope_1/ts_rope_1.gd" id="1_r36a4"]
 [ext_resource type="PackedScene" uid="uid://ppx05l7myod2" path="res://landing_page/objects/rope/rope.tscn" id="1_ynaue"]
-[ext_resource type="Texture2D" uid="uid://bcc1botv4wocj" path="res://landing_page/objects/rope/pothead_test.png" id="2_yo4li"]
+[ext_resource type="PackedScene" uid="uid://bbl5hshx72awq" path="res://landing_page/scenes/ts_rope_1/test_hanger.tscn" id="3_r36a4"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_r36a4"]
-size = Vector3(0.118652344, 0.29992676, 0.029785156)
+[sub_resource type="Curve3D" id="Curve3D_r36a4"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
 
 [node name="ts_rope_1" type="Node3D"]
 script = ExtResource("1_r36a4")
 metadata/_edit_lock_ = true
 
-[node name="Rope" parent="." instance=ExtResource("1_ynaue")]
+[node name="rope" parent="." instance=ExtResource("1_ynaue")]
+curve = SubResource("Curve3D_r36a4")
+hanger_scene = ExtResource("3_r36a4")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24368006, 1.7184455)
-
-[node name="hanger" type="RigidBody3D" parent="."]
-
-[node name="Sprite3D" type="Sprite3D" parent="hanger"]
-offset = Vector2(0, 16)
-texture_filter = 0
-texture = ExtResource("2_yo4li")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="hanger"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0017089844, 0.13238525, 0.002096668)
-shape = SubResource("BoxShape3D_r36a4")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24368006, 0.9264178)

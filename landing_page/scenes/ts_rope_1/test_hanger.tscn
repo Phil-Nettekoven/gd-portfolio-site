@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbl5hshx72awq"]
+
+[ext_resource type="Texture2D" uid="uid://bcc1botv4wocj" path="res://landing_page/scenes/ts_rope_1/pothead_test.png" id="1_pjgvh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r36a4"]
+size = Vector3(0.118652344, 0.29992676, 0.029785156)
+
+[node name="hanger" type="RigidBody3D"]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+offset = Vector2(0, 16)
+texture_filter = 0
+texture = ExtResource("1_pjgvh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0017089844, 0.13238525, 0.002096668)
+shape = SubResource("BoxShape3D_r36a4")
