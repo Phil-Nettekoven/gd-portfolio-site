@@ -146,3 +146,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_3p3ld")
 }
 speed_scale = 10.0
+
+[node name="spin_delay_timer" type="Timer" parent="."]
+one_shot = true

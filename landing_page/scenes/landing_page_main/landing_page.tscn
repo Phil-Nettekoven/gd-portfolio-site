@@ -1,8 +1,108 @@
-[gd_scene load_steps=4 format=3 uid="uid://cy1048g3kqwm2"]
+[gd_scene load_steps=8 format=3 uid="uid://cy1048g3kqwm2"]
 
 [ext_resource type="Script" uid="uid://c51xcbi2it52q" path="res://landing_page/scenes/landing_page_main/landing_page.gd" id="1_0f53d"]
 [ext_resource type="PackedScene" uid="uid://dnjp4uhoddysj" path="res://landing_page/objects/button_1/button_1.tscn" id="1_b767f"]
 [ext_resource type="FontFile" uid="uid://eohnx6s6hpdv" path="res://art/fonts/WaterResistant.ttf" id="3_uaxuw"]
+[ext_resource type="PackedScene" uid="uid://b6iheqfavn7f6" path="res://art/shaders/3d_shader_mesh.tscn" id="4_kapmu"]
+
+[sub_resource type="Shader" id="Shader_kapmu"]
+resource_local_to_scene = true
+code = "shader_type spatial;
+
+uniform vec2 resolution = vec2(600.0, 400.0);
+uniform vec3 line_color: source_color = vec3(0.1, 0.4, 0.2);
+uniform int octaves: hint_range(1,50,1) = 20;
+uniform float zoom_factor: hint_range(1.0, 100.0, 0.1) = 10.0;
+uniform float zoom_coef: hint_range(1.0, 5.0, 0.01) = 1.1;
+uniform float brightness: hint_range(1.0,100.0,0.1) = 10.0;
+uniform float rotation_angle: hint_range(0, 4.0, 0.01) = 0.5;
+uniform float time_scale: hint_range(0.0, 10.0, 0.05) = 1.0;
+uniform float length_mod: hint_range(-0.3, 0.5, 0.01) = 0.01;
+uniform float brightness_mod: hint_range (-1.0, 1.0, 0.1) = 0.01;
+uniform float alpha_threshold: hint_range(0.0, 1.0, 0.01) = 0.0;
+uniform float game_time = -999.0;
+uniform bool pause = false;
+
+/**
+*BROKEN
+*/
+uniform float power_scale = 2.0;
+
+mat2 rotate(float angle){
+	float sa = sin(angle);
+	float ca = cos(angle);
+	return mat2(vec2(ca,sa), vec2(-sa, ca));
+}
+
+vec2 fractal(vec2 uv, float time){
+	vec2 shift = vec2(0.0);
+	vec2 warped_uv = vec2(0.0);
+	vec2 fbm = vec2(0.0);
+	float zoom = zoom_factor;
+	mat2 rotation = rotate(rotation_angle);
+
+	for (int i = 0; i < octaves; i++){
+		uv *= rotation;
+		shift *= rotation;
+		warped_uv = uv * zoom + float(i) + shift + time;
+		shift += sin(warped_uv);
+		fbm += cos(warped_uv) / zoom;
+		zoom *= zoom_coef;
+	}
+	return fbm;
+}
+
+
+
+void vertex() { // Called for every vertex the material is visible on.
+
+}
+
+void fragment() {
+	vec2 uv = UV - 0.5;
+	uv.x *= resolution.x / resolution.y;
+
+	vec2 fbm = fractal(uv, TIME * time_scale);
+
+	float fbm_len = max(length(fbm), 0.0001);
+	vec3 color = brightness * line_color *
+	    pow((fbm.x + fbm.y + brightness_mod) + length_mod / fbm_len, 2.0);
+
+	color = clamp(color, vec3(0.0), vec3(1.0));
+
+	EMISSION = color * 0.5;
+}
+
+//void light() {
+	// Called for every pixel for every light affecting the material.
+	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vwrj8"]
+resource_local_to_scene = true
+render_priority = 0
+shader = SubResource("Shader_kapmu")
+shader_parameter/resolution = Vector2(600, 400)
+shader_parameter/line_color = Color(0.71875596, 0.27544582, 0.3899438, 1)
+shader_parameter/octaves = 2
+shader_parameter/zoom_factor = 12.60000017285392
+shader_parameter/zoom_coef = 1.83999998122432
+shader_parameter/brightness = 1.0
+shader_parameter/rotation_angle = 0.5
+shader_parameter/time_scale = 0.15000000223518
+shader_parameter/length_mod = -0.010000018403010014
+shader_parameter/brightness_mod = 0.6000000238419201
+shader_parameter/alpha_threshold = 0.0499999988824
+shader_parameter/game_time = -999.0
+shader_parameter/pause = false
+shader_parameter/power_scale = 2.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_sq7bj"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_vwrj8")
+size = Vector2(15, 15)
+orientation = 2
 
 [node name="landing_page" type="Node3D"]
 script = ExtResource("1_0f53d")
@@ -12,16 +112,18 @@ metadata/_edit_lock_ = true
 metadata/_edit_lock_ = true
 
 [node name="act_1_button" parent="buttons" instance=ExtResource("1_b767f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -0.69, 0)
-text = "ACT 1"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.69, 0)
+text = "BEGIN"
 
 [node name="act_2_button" parent="buttons" instance=ExtResource("1_b767f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.69049484, 0)
+visible = false
 text = "ACT 2"
 
 [node name="Camera3D" type="Camera3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.6408093)
+current = true
 fov = 75.8
 
 [node name="Follow" type="Node3D" parent="."]
@@ -29,11 +131,15 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.837333)
 
 [node name="tagline" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0034928024, -0.43988198, -0.8091414)
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0034928024, -0.24757487, -0.8091414)
+pixel_size = 0.01
 texture_filter = 0
 modulate = Color(0.75344735, 0.67313826, 0.9099662, 1)
-text = "'JUST AROUND THE CORNER'"
+text = "BLAM!"
 font = ExtResource("3_uaxuw")
 font_size = 35
 outline_size = 0
+
+[node name="3d_shader_mesh" parent="." instance=ExtResource("4_kapmu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.046357155, -0.4827813, -1.3723199)
+mesh = SubResource("PlaneMesh_sq7bj")

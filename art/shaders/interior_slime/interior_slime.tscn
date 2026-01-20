@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://3p4f57x7a3yh"]
+
+[ext_resource type="Shader" uid="uid://ifx5rg8jbcu1" path="res://art/shaders/interior_slime/interior_slime.gdshader" id="1_ccfkq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gt43e"]
+resource_local_to_scene = true
+shader = ExtResource("1_ccfkq")
+shader_parameter/resolution = Vector2(600, 400)
+shader_parameter/line_color = Color(0.282353, 0.258824, 0.219608, 1)
+shader_parameter/octaves = 20
+shader_parameter/zoom_factor = 10.0
+shader_parameter/zoom_coef = 1.1
+shader_parameter/brightness = 10.0
+shader_parameter/rotation_angle = 0.5
+shader_parameter/time_scale = 0.55
+shader_parameter/length_mod = 0.01
+shader_parameter/brightness_mod = 0.1
+shader_parameter/alpha_threshold = 0.0
+shader_parameter/game_time = 0.0
+shader_parameter/pause = false
+shader_parameter/power_scale = 2.0
+
+[node name="InteriorSlime" type="ColorRect"]
+z_index = -900
+material = SubResource("ShaderMaterial_gt43e")
+offset_right = 600.0
+offset_bottom = 400.0
+mouse_filter = 2

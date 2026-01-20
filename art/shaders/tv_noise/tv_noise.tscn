@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://boic0odpoib7p"]
+
+[ext_resource type="Shader" uid="uid://cl6afa1g8otou" path="res://art/shaders/tv_noise/tv_noise.gdshader" id="1_1rhu4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7ol8q"]
+shader = ExtResource("1_1rhu4")
+shader_parameter/zoom = 0.158
+shader_parameter/speed = 3.315
+shader_parameter/contrast = 2.0
+shader_parameter/brightness = 0.989
+shader_parameter/static_color_low = Color(0.285293, 0.577164, 0.574533, 1)
+shader_parameter/static_color_high = Color(0, 0, 0, 1)
+shader_parameter/alpha_threshold = 0.498
+
+[node name="tv_noise" type="ColorRect"]
+z_index = -900
+material = SubResource("ShaderMaterial_7ol8q")
+offset_right = 320.0
+offset_bottom = 180.0

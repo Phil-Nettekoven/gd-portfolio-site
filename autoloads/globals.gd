@@ -84,7 +84,6 @@ func _input(_event: InputEvent) -> void:
 		timer.stop()
 
 func _on_timer_timeout() -> void: #Exit game when menu is held for 1 second
-	#if Input.is_action_pressed("menu"):
 	get_tree().quit()
 
 func _notification(what: int) -> void:

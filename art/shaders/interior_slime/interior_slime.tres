@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://csgkea3ww2lhy"]
+
+[ext_resource type="Shader" uid="uid://ifx5rg8jbcu1" path="res://art/shaders/interior_slime/interior_slime.gdshader" id="1_v4py4"]
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_v4py4")
+shader_parameter/resolution = Vector2(600, 400)
+shader_parameter/line_color = Color(0.71875596, 0.27544582, 0.3899438, 1)
+shader_parameter/octaves = 2
+shader_parameter/zoom_factor = 12.60000017285392
+shader_parameter/zoom_coef = 1.83999998122432
+shader_parameter/brightness = 1.0
+shader_parameter/rotation_angle = 0.5
+shader_parameter/time_scale = 0.15000000223518
+shader_parameter/length_mod = -0.010000018403010014
+shader_parameter/brightness_mod = 0.6000000238419201
+shader_parameter/alpha_threshold = 0.0499999988824
+shader_parameter/game_time = -999.0
+shader_parameter/pause = false
+shader_parameter/power_scale = 2.0
